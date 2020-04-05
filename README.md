@@ -2,6 +2,9 @@
 
 > Ready Bible and track your progress
 
+## General info
+API used for Bible: `https://bibleonline.docs.apiary.io/#reference/0`
+
 ## Build Setup
 
 ``` bash
