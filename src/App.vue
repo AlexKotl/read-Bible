@@ -1,7 +1,10 @@
 <template>
     <div id="app">
-        <h1>Библия</h1>
         <h1>{{ msg }}</h1>
+
+        <div class="content">
+            <router-view></router-view>
+        </div>
     </div>
 </template>
 
@@ -10,10 +13,9 @@ import axios from 'axios'
 
 export default {
     name: 'app',
-    data () {
+    data() {
         return {
-            msg: 'Welcome to Your Vue.js App',
-            chapters: [],
+            msg: 'Библия',
         }
     },
 
