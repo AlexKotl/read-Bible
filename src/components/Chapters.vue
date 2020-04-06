@@ -1,13 +1,12 @@
 <template>
     <div>
         <h2>Оглавление</h2>
-        <div v-for="(chapters, book) in books" :key="book">
+        <div v-for="(chapters, book) in getChapters" :key="book">
             {{ book }}
             <div>
                 <router-link
                     v-for="chapter in chapters"
                     :key="chapter.id"
-                    active-class="is-active"
                     class="button"
                     :to="{ name: 'chapter', params: { id: chapter.id } }">
                     {{ chapter.number }}
@@ -20,23 +19,23 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 import axios from 'axios';
 
 export default {
     data() {
         return {
-            books: []
+            message: ""
         }
     },
 
-    created() {
-        axios('http://bible-api/?action=chapters').then(response => {
-            this.books = response.data;
-        })
-        .catch( error => {
-            console.error(error);
-        })
+    computed: mapGetters(["getChapters"]),
+    methods: mapActions(["fetchChapters"]),
 
+    async mounted() {
+        if (this.getChapters.length == 0) {
+            this.fetchChapters();
+        }
     }
 }
 </script>
