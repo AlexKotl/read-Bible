@@ -1,6 +1,9 @@
 <template>
     <div id="app">
-        <h1>{{ msg }}</h1>
+        <div class="login-action">
+            <router-link :to="{ name: 'login' }">Вход</router-link>
+        </div>
+        <h1>Библия</h1>
 
         <div class="content">
             <router-view></router-view>
