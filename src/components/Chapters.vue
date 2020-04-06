@@ -1,23 +1,42 @@
 <template>
     <div>
         <h2>Оглавление</h2>
-        <router-link
-            v-for="chapter in chapters"
-            :key="chapter"
-            active-class="is-active"
-            class="link"
-            :to="{ name: 'chapter', params: { id: chapter } }">
-            {{chapter}}, 
-        </router-link>
+        <div v-for="(chapters, book) in books">
+            {{ book }}
+            <div>
+                <router-link
+                    v-for="chapter in chapters"
+                    :key="chapter"
+                    active-class="is-active"
+                    class="link"
+                    :to="{ name: 'chapter', params: { id: chapter.id } }">
+                    {{ chapter.number }},
+                </router-link>
+            </div>
+        </div>
+
     </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     data() {
         return {
-            chapters: ['1', '2', 'Three']
+            books: []
         }
+    },
+
+    created() {
+        axios('http://bible-api/?action=chapters').then(response => {
+            this.books = response.data;
+            console.log(this.books);
+        })
+        .catch( error => {
+            console.error(error);
+        })
+
     }
 }
 </script>

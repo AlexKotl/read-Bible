@@ -4,6 +4,7 @@
 
 ## General info
 API used for Bible: `https://bibleonline.docs.apiary.io/#reference/0`
+Tutorial: https://github.com/DChuchin/vue-spa-tutorial/blob/step-5/src/components/Post.vue
 
 ## Build Setup
 
