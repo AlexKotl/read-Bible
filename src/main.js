@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import store from './store'
 import Router from 'vue-router'
 import App from './App.vue'
 import Chapters from './components/Chapters.vue'
@@ -21,6 +22,7 @@ const router = new Router({
 })
 
 new Vue({
+    store,
     el: '#app',
     render: h => h(App),
     router
