@@ -3,7 +3,10 @@
         <h2>Глава</h2>
         <router-link :to="{ name: 'chapters' }">К оглавлению</router-link>
 
-        <p>{{ content }}</p>
+        <p v-for="verse in verses" :key="'num' + verse.number" class="verse">
+            <span>{{ verse.number }}</span>
+            {{ verse.text }}
+        </p>
     </div>
 </template>
 
@@ -13,17 +16,30 @@ export default {
     props: ['id'],
     data() {
         return {
-            content: "SUPER!"
+            verses: []
         }
     },
-    watch: {
-        '$route'() {
-            // this.getPost(this.id); // update content ...
-        }
-    }
+    created() {
+        axios('http://bible-api/?action=chapter&id=' + this.id).then(response => {
+            this.verses = response.data;
+        })
+        .catch( error => {
+            console.error(error);
+        })
+    },
+    // watch: {
+    //     '$route'() {
+    //         this.getPost(this.id); // update content ...
+    //     }
+    // }
 }
 </script>
 
 <style lang="scss">
-
+.verse {
+    span {
+        color: #bbb;
+        font-size: 9px;
+    }
+}
 </style>

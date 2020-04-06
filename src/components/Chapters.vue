@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2>Оглавление</h2>
-        <div v-for="(chapters, book) in books">
+        <div v-for="(chapters, book) in books" :key="book">
             {{ book }}
             <div>
                 <router-link
@@ -31,7 +31,6 @@ export default {
     created() {
         axios('http://bible-api/?action=chapters').then(response => {
             this.books = response.data;
-            console.log(this.books);
         })
         .catch( error => {
             console.error(error);
