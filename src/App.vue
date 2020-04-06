@@ -3,7 +3,10 @@
         <div class="login-action">
             <router-link :to="{ name: 'login' }">Вход</router-link>
         </div>
-        <h1>Библия</h1>
+
+        <router-link :to="{ name: 'chapters' }">
+            <h1>Библия</h1>
+        </router-link>
 
         <div class="content">
             <router-view></router-view>
@@ -50,6 +53,8 @@ export default {
 
 h1, h2 {
     text-align: center;
+    color: #2c3e50;
+    text-decoration: none;
 }
 
 .button {

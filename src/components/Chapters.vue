@@ -30,6 +30,7 @@ export default {
     },
 
     computed: mapGetters(["getChapters"]),
+    
     methods: mapActions(["fetchChapters"]),
 
     async mounted() {
