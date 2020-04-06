@@ -9,7 +9,7 @@ $db = new CMysql();
 
 $data = [];
 if ($_GET['action'] === 'chapters') {
-    $res = $db->query("SELECT books.name, chapters.number FROM chapters
+    $res = $db->query("SELECT books.name, chapters.number, chapters.id FROM chapters
         LEFT JOIN books ON books.id = chapters.book_id
         ORDER BY chapters.id") or die($db->error());
     while ($row = $db->fetch($res)) {
@@ -31,5 +31,6 @@ if ($_GET['action'] === 'chapter') {
     }
 }
 
+header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 echo json_encode($data);
