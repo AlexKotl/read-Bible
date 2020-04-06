@@ -6,13 +6,14 @@
             <div>
                 <router-link
                     v-for="chapter in chapters"
-                    :key="chapter"
+                    :key="chapter.id"
                     active-class="is-active"
-                    class="link"
+                    class="button"
                     :to="{ name: 'chapter', params: { id: chapter.id } }">
-                    {{ chapter.number }},
+                    {{ chapter.number }}
                 </router-link>
             </div>
+            <br/>
         </div>
 
     </div>

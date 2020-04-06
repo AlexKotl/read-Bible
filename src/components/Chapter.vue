@@ -4,8 +4,8 @@
         <router-link :to="{ name: 'chapters' }">К оглавлению</router-link>
 
         <p v-for="verse in verses" :key="'num' + verse.number" class="verse">
-            <span>{{ verse.number }}</span>
-            {{ verse.text }}
+            <sup>{{ verse.number }}</sup>
+            <span v-html="verse.text"></span>
         </p>
     </div>
 </template>
@@ -37,7 +37,9 @@ export default {
 
 <style lang="scss">
 .verse {
-    span {
+    text-align: justify;
+
+    sup {
         color: #bbb;
         font-size: 9px;
     }

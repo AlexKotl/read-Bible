@@ -40,9 +40,34 @@ export default {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-align: center;
     color: #2c3e50;
-    margin-top: 60px;
+    margin: 60px auto;
+    max-width: 500px;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+.button {
+    background-color: #ebebeb;
+    box-shadow: 0px 3px 0 #c2c2c2;
+    color: black;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 3px 2px;
+    padding: 3px 5px;
+    font-weight: bold;
+    font-size: 14px;
+    min-width: 20px;
+    text-align: center;
+    display: inline-block;
+
+    &.green {
+        background-color: #58a700;
+        box-shadow: 0px 3px 0 #78c800;
+        color: white;
+    }
 }
 
 a {
