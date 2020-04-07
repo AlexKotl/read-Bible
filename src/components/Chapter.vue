@@ -7,6 +7,14 @@
             <sup>{{ verse.number }}</sup>
             <span v-html="verse.text"></span>
         </p>
+
+        <br/>
+        <div class="chapter-footer">
+            <button class="button green" @click="markRead">
+                Отменить главу прочитанной
+            </button>
+            <br/><small>После прочтения главы не забудьте нажать эту кнопку</small>
+        </div>
     </div>
 </template>
 
@@ -19,6 +27,11 @@ export default {
             verses: []
         }
     },
+    methods: {
+        markRead() {
+            console.log('read');
+        }
+    },
     created() {
         axios('http://bible-api/?action=chapter&id=' + this.id).then(response => {
             this.verses = response.data;
@@ -27,11 +40,6 @@ export default {
             console.error(error);
         })
     },
-    // watch: {
-    //     '$route'() {
-    //         this.getPost(this.id); // update content ...
-    //     }
-    // }
 }
 </script>
 
@@ -44,4 +52,12 @@ export default {
         font-size: 9px;
     }
 }
+.chapter-footer {
+    text-align: center;
+    .button {
+        line-height: 46px;
+        padding: 0 20px;
+    }
+}
+
 </style>
