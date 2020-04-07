@@ -5,6 +5,7 @@ import App from './App.vue'
 import Chapters from './components/Chapters.vue'
 import Chapter from './components/Chapter.vue'
 import LoginForm from './components/LoginForm.vue'
+import RegistrationForm from './components/RegistrationForm.vue'
 
 Vue.use(Router)
 
@@ -24,6 +25,11 @@ const router = new Router({
         path: '/login',
         name: 'login',
         component: LoginForm,
+    },
+    {
+        path: '/registration',
+        name: 'registration',
+        component: RegistrationForm,
     }]
 })
 

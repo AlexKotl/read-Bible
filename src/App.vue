@@ -8,6 +8,7 @@
             </div>
             <div v-else>
                 <router-link :to="{ name: 'login' }">Вход</router-link>
+                <router-link :to="{ name: 'registration' }">Регистрация</router-link>
             </div>
         </div>
 
@@ -88,19 +89,42 @@ h1, h2 {
     text-align: center;
     display: inline-block;
 
+    &:hover {
+        background-color: #f2f1f1;
+    }
+
     &.green {
         background-color: #58a700;
         box-shadow: 0px 3px 0 #78c800;
         color: white;
+
+        &:hover {
+            background-color: #66ba07;
+        }
     }
 
     &.disabled {
         color: #b6b6b6;
     }
+
 }
 
 a {
     color: #42b983;
     cursor: pointer;
+}
+
+form {
+    input[type=text], input[type=password], input[type=email] {
+        width: 100%;
+        font-size: 1em;
+        line-height: 2em;
+        margin-bottom: 7px;
+        border-radius: 3px;
+        border: 1px solid #c7c7c7;
+    }
+    .button {
+        padding: 10px 20px;
+    }
 }
 </style>

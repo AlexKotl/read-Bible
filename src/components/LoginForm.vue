@@ -53,15 +53,8 @@ export default {
 }
 </script>
 
-<style lang="scss">
-input[type=text], input[type=password] {
-    width: 100%;
-    font-size: 1em;
-    line-height: 2em;
-    margin-bottom: 7px;
-    border-radius: 3px;
-    border: 1px solid #c7c7c7;
-}
+<style lang="scss" scoped>
+
 h3 {
     color: red;
 }
