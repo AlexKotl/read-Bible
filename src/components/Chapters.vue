@@ -22,21 +22,8 @@
 import { mapGetters, mapActions } from "vuex";
 
 export default {
-    data() {
-        return {
-            message: ""
-        }
-    },
-
     computed: mapGetters(["getChapters"]),
-
     methods: mapActions(["fetchChapters"]),
-
-    async mounted() {
-        if (this.getChapters.length == 0) {
-            this.fetchChapters();
-        }
-    }
 }
 </script>
 

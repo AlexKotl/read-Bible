@@ -51,6 +51,9 @@ export default {
                 user_email: localStorage.user_email
             });
         }
+
+        // load chapters to store
+        this.fetchChapters();
     }
 }
 </script>
@@ -89,6 +92,10 @@ h1, h2 {
         background-color: #58a700;
         box-shadow: 0px 3px 0 #78c800;
         color: white;
+    }
+
+    &.disabled {
+        color: #b6b6b6;
     }
 }
 
