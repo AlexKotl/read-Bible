@@ -42,7 +42,7 @@ if ($_GET['action'] === 'auth') {
     if ($row) {
         // generate new session key for user
         $session_id = md5($email . $password . time());
-        $db->update('users', $row['id'], ['session' => $session]);
+        $db->update('users', $row['id'], ['session' => $session_id]);
 
         $data = [
             'session_id' => $session_id,

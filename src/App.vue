@@ -47,9 +47,9 @@ export default {
         if (localStorage.session_id !== undefined) {
             console.log('saving user to store', localStorage.session_id);
             this.setUser({
-                session: localStorage.session_id,
-                name: localStorage.user_name,
-                email: localStorage.user_email
+                session_id: localStorage.session_id,
+                user_name: localStorage.user_name,
+                user_email: localStorage.user_email
             });
         }
     }
