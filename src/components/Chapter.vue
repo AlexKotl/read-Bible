@@ -19,16 +19,32 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 export default {
     props: ['id'],
     data() {
         return {
-            verses: []
+            verses: [],
+            is_read: false
         }
     },
     methods: {
-        markRead() {
-            console.log('read');
+        ...mapGetters(["getUser"]),
+        ...mapMutations(["updateChapters"]),
+        ...mapActions(["fetchChapters"]),
+        async markRead() {
+            // redirect unlogged users
+            if (this.getUser().session_id === undefined) {
+                this.$router.push({ name: 'login'});
+            }
+
+            const res = await fetch("http://bible-api/?action=mark_read&" + new URLSearchParams({
+                session_id: this.getUser().session_id,
+                chapter_id: this.id,
+                is_read: 1
+            }).toString());
+
+            this.fetchChapters();
         }
     },
     async created() {

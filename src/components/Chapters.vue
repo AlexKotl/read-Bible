@@ -7,7 +7,7 @@
                 <router-link
                     v-for="chapter in chapters"
                     :key="chapter.id"
-                    class="button"
+                    :class="{'green': chapter.is_read, 'button': true}"
                     :to="{ name: 'chapter', params: { id: chapter.id } }">
                     {{ chapter.number }}
                 </router-link>

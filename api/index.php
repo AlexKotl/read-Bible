@@ -9,13 +9,17 @@ $db = new CMysql();
 
 $data = [];
 if ($_GET['action'] === 'chapters') {
-    $res = $db->query("SELECT books.name, chapters.number, chapters.id FROM chapters
+    $user_id = (int)$db->get_row("SELECT id FROM users WHERE session='".$db->filter($_GET['session_id'])."' LIMIT 1");
+
+    $res = $db->query("SELECT books.name, chapters.number, chapters.id, users_chapters.is_read FROM chapters
         LEFT JOIN books ON books.id = chapters.book_id
+        LEFT JOIN users_chapters ON users_chapters.user_id = '{$user_id}' AND users_chapters.chapter_id = chapters.id
         ORDER BY chapters.id") or die($db->error());
     while ($row = $db->fetch($res)) {
         $data[$row['name']][] = [
             'id' => $row['id'],
             'number' => $row['number'],
+            'is_read' => $row['is_read'],
         ];
     }
 }
@@ -59,6 +63,27 @@ if ($_GET['action'] === 'auth') {
         $data = [
             'error' => "Пользователь с email {$email} не найден.",
         ];
+    }
+}
+
+if ($_GET['action'] === 'mark_read') {
+    $chapter_id = (int)$_GET['chapter_id'];
+    $is_read = (int)$_GET['is_read'];
+    $session_id = $db->filter($_GET['session_id']);
+    $user_id = $db->get_row("SELECT id FROM users WHERE session='{$session_id}' LIMIT 1");
+
+    // TODO check user
+    if ($user_id ==0 || $session_id == '') {
+        $data['error'] = "Can't verify user credentials.";
+    }
+    else {
+        if ($db->get_row("SELECT * FROM users_chapters WHERE user_id='{$user_id}' AND chapter_id='{$chapter_id}'") === false) {
+            $db->insert('users_chapters', [ 'user_id' => $user_id, 'chapter_id' => $chapter_id ]);
+        }
+
+        $db->query("UPDATE users_chapters SET is_read='{$is_read}' WHERE user_id='{$user_id}' AND chapter_id='{$chapter_id}'");
+
+        $data['code'] = 200;
     }
 }
 

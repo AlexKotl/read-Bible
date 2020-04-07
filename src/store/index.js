@@ -5,8 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     actions: {
-        async fetchChapters({ commit, getters, dispatch }) {
-            const res = await fetch('http://bible-api/?action=chapters');
+        async fetchChapters({ commit, getters, dispatch, state }) {
+            const res = await fetch('http://bible-api/?action=chapters&session_id=' + state.user.session_id);
             const chapters = await res.json();
 
             commit('updateChapters', chapters)

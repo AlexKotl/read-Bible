@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapMutations, mapActions } from "vuex";
 
 export default {
     data() {
@@ -23,7 +23,8 @@ export default {
         }
     },
     methods: {
-        ...mapMutations(['setUser']),
+        ...mapMutations(["setUser"]),
+        ...mapActions(["fetchChapters"]),
         async submit() {
             const res = await fetch("http://bible-api/?action=auth", {
                 method: "POST",
@@ -33,7 +34,6 @@ export default {
                 })
             });
             const user = await res.json();
-            console.log(user);
 
             if (user.error !== undefined) {
                 this.message = user.error;
@@ -45,6 +45,7 @@ export default {
 
                 this.setUser(user);
 
+                await this.fetchChapters();
                 this.$router.push({ name: 'chapters'});
             }
         }

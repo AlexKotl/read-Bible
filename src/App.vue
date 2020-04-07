@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
 
 export default {
     name: 'app',
@@ -34,18 +34,17 @@ export default {
     },
     methods: {
         ...mapMutations(['setUser']),
+        ...mapActions(["fetchChapters"]),
         logout() {
             delete localStorage.session_id;
             delete localStorage.user_name;
             delete localStorage.user_email;
             this.setUser({});
+            this.fetchChapters();
         }
     },
     mounted() {
-        console.log('user', this.getUser);
-
         if (localStorage.session_id !== undefined) {
-            console.log('saving user to store', localStorage.session_id);
             this.setUser({
                 session_id: localStorage.session_id,
                 user_name: localStorage.user_name,
