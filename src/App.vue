@@ -2,8 +2,8 @@
     <div id="app">
         <div class="menu-actions">
 
-            <div v-if="getUser.session">
-                Привет {{ getUser.name }},
+            <div v-if="getUser.session_id">
+                Привет {{ getUser.user_name }},
                 <a @click="logout" href="#">Выйти</a>
             </div>
             <div v-else>

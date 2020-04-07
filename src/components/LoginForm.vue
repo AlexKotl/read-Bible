@@ -33,14 +33,15 @@ export default {
                 })
             });
             const user = await res.json();
+            console.log(user);
 
             if (user.error !== undefined) {
                 this.message = user.error;
             }
             else {
-                localStorage.session_id = user.session;
-                localStorage.user_name = user.name;
-                localStorage.user_email = user.email;
+                localStorage.session_id = user.session_id;
+                localStorage.user_name = user.user_name;
+                localStorage.user_email = user.user_email;
 
                 this.setUser(user);
 
