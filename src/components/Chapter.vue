@@ -45,7 +45,7 @@ export default {
         isRead() {
             let is_read = false;
             Object.values(this.getChapters).forEach((book) => {
-                let found = book.find( (chapter) => chapter.id == this.id && chapter.is_read == "1" );
+                let found = book.find( (chapter) => chapter.id == this.id && chapter.is_read == 1 );
                 if (found !== undefined) {
                     is_read = true;
                 }
@@ -60,11 +60,11 @@ export default {
             if (this.getUser.session_id === undefined) {
                 this.$router.push({ name: 'login'});
             }
-
+            
             const res = await fetch("http://bible-api/?action=mark_read&" + new URLSearchParams({
                 session_id: this.getUser.session_id,
                 chapter_id: this.id,
-                is_read: 1
+                is_read: this.isRead ? 0 : 1
             }).toString());
 
             this.fetchChapters();

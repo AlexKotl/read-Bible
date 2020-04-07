@@ -19,7 +19,7 @@ if ($_GET['action'] === 'chapters') {
         $data[$row['name']][] = [
             'id' => $row['id'],
             'number' => $row['number'],
-            'is_read' => $row['is_read'],
+            'is_read' => (int)$row['is_read'],
         ];
     }
 }
@@ -72,7 +72,6 @@ if ($_GET['action'] === 'mark_read') {
     $session_id = $db->filter($_GET['session_id']);
     $user_id = $db->get_row("SELECT id FROM users WHERE session='{$session_id}' LIMIT 1");
 
-    // TODO check user
     if ($user_id ==0 || $session_id == '') {
         $data['error'] = "Can't verify user credentials.";
     }
@@ -84,6 +83,7 @@ if ($_GET['action'] === 'mark_read') {
         $db->query("UPDATE users_chapters SET is_read='{$is_read}' WHERE user_id='{$user_id}' AND chapter_id='{$chapter_id}'");
 
         $data['code'] = 200;
+        $data['messsage'] = "UPDATE users_chapters SET is_read='{$is_read}' WHERE user_id='{$user_id}' AND chapter_id='{$chapter_id}'";
     }
 }
 
