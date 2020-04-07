@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 export default {
     props: ['id'],
     data() {
@@ -32,13 +31,9 @@ export default {
             console.log('read');
         }
     },
-    created() {
-        axios('http://bible-api/?action=chapter&id=' + this.id).then(response => {
-            this.verses = response.data;
-        })
-        .catch( error => {
-            console.error(error);
-        })
+    async created() {
+        const res = await fetch('http://bible-api/?action=chapter&id=' + this.id);
+        this.verses = await res.json();
     },
 }
 </script>
