@@ -15,6 +15,8 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
+
 export default {
     data() {
         return {
@@ -25,6 +27,7 @@ export default {
         }
     },
     methods: {
+        ...mapMutations(['setUser']),
         async submit() {
             const res = await fetch("http://bible-api/?action=auth", {
                 method: "POST",
@@ -40,6 +43,11 @@ export default {
             }
             else {
                 this.is_auth = true;
+                localStorage.session_id = user.session;
+                localStorage.user_name = user.name;
+                localStorage.user_email = user.email;
+
+                this.setUser(user);
             }
         }
     }

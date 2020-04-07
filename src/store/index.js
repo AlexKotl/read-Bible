@@ -14,15 +14,22 @@ export default new Vuex.Store({
     },
     mutations: {
         updateChapters(state, chapters) {
-            state.chapters = chapters
+            state.chapters = chapters;
+        },
+        setUser(state, user) {
+            state.user = user;
         }
     },
     state: {
-        chapters: []
+        chapters: [],
+        user: false,
     },
     getters: {
         getChapters(state) {
             return state.chapters;
+        },
+        getUser(state) {
+            return state.user;
         }
     }
 })

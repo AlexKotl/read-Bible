@@ -1,7 +1,13 @@
 <template>
     <div id="app">
-        <div class="login-action">
-            <router-link :to="{ name: 'login' }">Вход</router-link>
+        <div class="menu-actions">
+
+            <div v-if="getUser.session">
+                Привет {{ getUser.name }}
+            </div>
+            <div v-else>
+                <router-link :to="{ name: 'login' }">Вход</router-link>
+            </div>
         </div>
 
         <router-link :to="{ name: 'chapters' }">
@@ -15,29 +21,19 @@
 </template>
 
 <script>
-import axios from 'axios'
+import { mapGetters } from "vuex";
 
 export default {
     name: 'app',
+    computed: mapGetters(["getUser"]),
     data() {
         return {
             msg: 'Библия',
         }
     },
-
-    created() {
-
-    },
-
-    methods: {
-        getAllPosts() {
-            axios.get(this.endpoint).then(response => {
-                this.posts = response.data;
-            }).catch(error => {
-                console.error(error);
-            })
-        }
-    },
+    mounted() {
+        console.log('user', this.getUser);
+    }
 }
 </script>
 
