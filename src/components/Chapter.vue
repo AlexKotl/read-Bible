@@ -16,7 +16,7 @@
             </div>
             <div v-else-if="isRead">
                 <button class="button green" @click="markRead">
-                    Глава уже прочитана
+                    &#10004; &nbsp; Глава уже прочитана
                 </button>
                 <br/><small>Нажмите еще раз чтобы отметить главу как не прочитанную</small>
             </div>
@@ -60,7 +60,7 @@ export default {
             if (this.getUser.session_id === undefined) {
                 this.$router.push({ name: 'login'});
             }
-            
+
             const res = await fetch("http://bible-api/?action=mark_read&" + new URLSearchParams({
                 session_id: this.getUser.session_id,
                 chapter_id: this.id,

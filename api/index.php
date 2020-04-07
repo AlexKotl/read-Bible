@@ -66,6 +66,34 @@ if ($_GET['action'] === 'auth') {
     }
 }
 
+if ($_GET['action'] === 'register') {
+    $request_body = file_get_contents('php://input');
+    $request_body = json_decode($request_body, true);
+
+    $email = $db->filter($request_body['email'], 'email');
+    $name = $db->filter($request_body['name']);
+    $password = md5($request_body['password']);
+
+    if ($db->get_row("SELECT * FROM users WHERE email='{$email}'") !== false) {
+        $data['error'] = "Пользователь с таким Email уже зарегистрирован.";
+    }
+    else {
+        $db->insert("users", [
+            'name' => $name,
+            'email' => $email,
+            'password' => $password,
+            'session' => md5($email . $password),
+        ]);
+
+        $user_row = $db->get_row("SELECT * FROM users WHERE id='" . $db->last_insert_id('users') . "'");
+        $data = [
+            'session_id' => $user_row['session'],
+            'user_name' => $user_row['name'],
+            'user_email' => $user_row['email'],
+        ];
+    }
+}
+
 if ($_GET['action'] === 'mark_read') {
     $chapter_id = (int)$_GET['chapter_id'];
     $is_read = (int)$_GET['is_read'];
