@@ -2,14 +2,11 @@
     <div>
         <h1>Вход</h1>
         <h3>{{ message }}</h3>
-        <form @submit.prevent="submit" v-if="!is_auth">
+        <form @submit.prevent="submit">
             <input type="text" v-model="email" value="" placeholder="Логин">
             <input type="password" v-model="password" value="" placeholder="Пароль">
             <input type="submit" name="" value="Вход" class="button">
         </form>
-        <div v-else>
-            Вход выполнен
-        </div>
     </div>
 
 </template>
@@ -23,7 +20,6 @@ export default {
             message: "",
             email: "",
             password: "",
-            is_auth: false
         }
     },
     methods: {
@@ -42,12 +38,13 @@ export default {
                 this.message = user.error;
             }
             else {
-                this.is_auth = true;
                 localStorage.session_id = user.session;
                 localStorage.user_name = user.name;
                 localStorage.user_email = user.email;
 
                 this.setUser(user);
+
+                this.$router.push({ name: 'chapters'});
             }
         }
     }

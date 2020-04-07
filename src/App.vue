@@ -3,7 +3,8 @@
         <div class="menu-actions">
 
             <div v-if="getUser.session">
-                Привет {{ getUser.name }}
+                Привет {{ getUser.name }},
+                <a @click="logout" href="#">Выйти</a>
             </div>
             <div v-else>
                 <router-link :to="{ name: 'login' }">Вход</router-link>
@@ -21,7 +22,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
     name: 'app',
@@ -31,8 +32,26 @@ export default {
             msg: 'Библия',
         }
     },
+    methods: {
+        ...mapMutations(['setUser']),
+        logout() {
+            delete localStorage.session_id;
+            delete localStorage.user_name;
+            delete localStorage.user_email;
+            this.setUser({});
+        }
+    },
     mounted() {
         console.log('user', this.getUser);
+
+        if (localStorage.session_id !== undefined) {
+            console.log('saving user to store', localStorage.session_id);
+            this.setUser({
+                session: localStorage.session_id,
+                name: localStorage.user_name,
+                email: localStorage.user_email
+            });
+        }
     }
 }
 </script>
