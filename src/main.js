@@ -1,13 +1,13 @@
-import Vue from 'vue'
-import store from './store'
-import Router from 'vue-router'
-import App from './App.vue'
-import Chapters from './components/Chapters.vue'
-import Chapter from './components/Chapter.vue'
-import LoginForm from './components/LoginForm.vue'
-import RegistrationForm from './components/RegistrationForm.vue'
+import Vue from 'vue';
+import store from './store';
+import Router from 'vue-router';
+import App from './App.vue';
+import Chapters from './components/Chapters.vue';
+import Chapter from './components/Chapter.vue';
+import LoginForm from './components/LoginForm.vue';
+import RegistrationForm from './components/RegistrationForm.vue';
 
-Vue.use(Router)
+Vue.use(Router);
 
 const router = new Router({
     routes: [{
@@ -38,4 +38,4 @@ new Vue({
     el: '#app',
     render: h => h(App),
     router
-})
+});

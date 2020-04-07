@@ -1,5 +1,7 @@
 <template>
     <div>
+        <StatisticsShort></StatisticsShort>
+
         <h2>Оглавление</h2>
         <div v-for="(chapters, book) in getChapters" :key="book">
             {{ book }}
@@ -20,10 +22,12 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import StatisticsShort from './StatisticsShort.vue';
 
 export default {
     computed: mapGetters(["getChapters"]),
     methods: mapActions(["fetchChapters"]),
+    components: { StatisticsShort },
 }
 </script>
 
