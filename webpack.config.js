@@ -81,14 +81,7 @@ module.exports = {
   performance: {
     hints: false
   },
-  devtool: '#eval-source-map',
-  plugins: (module.exports.plugins || []).concat([
-    new webpack.DefinePlugin({
-      'process.env': {
-        API_URL: '"http://bible-api"'
-      }
-    })
-  ])
+  devtool: '#eval-source-map'
 }
 
 if (process.env.NODE_ENV === 'production') {
@@ -110,5 +103,15 @@ if (process.env.NODE_ENV === 'production') {
     new webpack.LoaderOptionsPlugin({
       minimize: true
     })
+  ])
+}
+else {
+    module.exports.plugins = (module.exports.plugins || []).concat([
+      new webpack.DefinePlugin({
+        'process.env': {
+          NODE_ENV: '"production"',
+          API_URL: '"http://bible-api"'
+        }
+      }),
   ])
 }
