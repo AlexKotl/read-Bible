@@ -26,7 +26,7 @@ export default {
         ...mapMutations(["setUser"]),
         ...mapActions(["fetchChapters"]),
         async submit() {
-            const res = await fetch("http://bible-api/?action=auth", {
+            const res = await fetch(process.env.API_URL + "/?action=auth", {
                 method: "POST",
                 body: JSON.stringify({
                     email: this.email,

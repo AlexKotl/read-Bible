@@ -37,7 +37,7 @@ export default {
                 this.message = 'Пароли не совпадают';
             }
 
-            const res = await fetch("http://bible-api/?action=register", {
+            const res = await fetch(process.env.API_URL + "/?action=register", {
                 method: "POST",
                 body: JSON.stringify({
                     name: this.name,

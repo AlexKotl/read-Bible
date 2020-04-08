@@ -74,7 +74,7 @@ export default {
                 this.$router.push({ name: 'login'});
             }
 
-            const res = await fetch("http://bible-api/?action=mark_read&" + new URLSearchParams({
+            const res = await fetch(process.env.API_URL + "/?action=mark_read&" + new URLSearchParams({
                 session_id: this.getUser.session_id,
                 chapter_id: this.id,
                 is_read: this.isRead ? 0 : 1
@@ -90,7 +90,7 @@ export default {
         }
     },
     async created() {
-        const res = await fetch('http://bible-api/?action=chapter&id=' + this.id);
+        const res = await fetch(process.env.API_URL + '/?action=chapter&id=' + this.id);
         const data = await res.json();
         this.verses = data.verses;
         this.chapter = data.chapter;

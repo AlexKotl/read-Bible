@@ -50,7 +50,7 @@ export default {
             return;
         }
 
-        const res = await fetch("http://bible-api/?action=statistics&session_id=" + this.getUser.session_id);
+        const res = await fetch(process.env.API_URL + "/?action=statistics&session_id=" + this.getUser.session_id);
         this.stats = await res.json();
 
         this.datacollection = {
