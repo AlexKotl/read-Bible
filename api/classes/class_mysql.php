@@ -10,6 +10,7 @@ class CMysql {
 
 	   $this->link = mysqli_connect($db_server,$db_user,$db_password,$db_name) or die("Cannot connect to Mysqli DB $db_server:$db_user");
 	   $this->table_name = $db_name;
+	   mysqli_set_charset($this->link, 'utf8');
    }
 
    function query($string, $return_array=false) {
