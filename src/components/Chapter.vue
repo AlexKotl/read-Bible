@@ -1,6 +1,7 @@
 <template>
     <div>
-        <h2>Глава</h2>
+        <h2>{{ chapter.book_name }}</h2>
+        <h3>Глава {{ chapter.number }}</h3>
         <div style="float:right">
             <a @click="zoomOut" class="button">	&#8722;</a>
             <a @click="zoomIn" class="button">+</a>
@@ -33,6 +34,10 @@
                 <br/><small>После прочтения главы не забудьте нажать эту кнопку</small>
             </div>
 
+            <br/><br/>
+            <router-link :to="{ name: 'chapter', params: { id: chapter.prev_id } }" v-if="chapter.prev_id">&laquo; Предыдущая глава</router-link>
+            <router-link :to="{ name: 'chapter', params: { id: chapter.next_id } }" v-if="chapter.next_id" style="margin-left:40px">Следующая глава &raquo;</router-link>
+
         </div>
     </div>
 </template>
@@ -43,7 +48,8 @@ export default {
     props: ['id'],
     data() {
         return {
-            verses: []
+            verses: [],
+            chapter: {}
         }
     },
     computed: {
@@ -77,15 +83,17 @@ export default {
             this.fetchChapters();
         },
         zoomOut() {
-            this.updateFontSize(this.getFontSize - 1);
+            return this.updateFontSize(this.getFontSize - 1);
         },
         zoomIn() {
-            this.updateFontSize(this.getFontSize + 1);
+            return this.updateFontSize(this.getFontSize + 1);
         }
     },
     async created() {
         const res = await fetch('http://bible-api/?action=chapter&id=' + this.id);
-        this.verses = await res.json();
+        const data = await res.json();
+        this.verses = data.verses;
+        this.chapter = data.chapter;
 
         let is_read = false;
         Object.values(this.getChapters).forEach((book) => {

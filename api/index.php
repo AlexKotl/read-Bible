@@ -33,11 +33,18 @@ if ($_GET['action'] === 'chapter') {
     $id = (int)$_GET['id'];
     $res = $db->query("SELECT * FROM verses WHERE chapter_id='{$id}'") or die($db->error());
     while ($row = $db->fetch($res)) {
-        $data[] = [
+        $data['verses'][] = [
             'number' => $row['number'],
             'text' => $row['content'],
         ];
     }
+    $row_chapter = $db->get_row("SELECT * FROM chapters WHERE id='{$id}'");
+    $data['chapter'] = [
+        'number' => $row_chapter['number'],
+        'book_name' => $db->get_row("SELECT name FROM books WHERE id='{$row_chapter['book_id']}'"),
+        'next_id' => $db->get_row("SELECT id FROM chapters WHERE id>{$id} ORDER BY id LIMIT 1"),
+        'prev_id' => $db->get_row("SELECT id FROM chapters WHERE id<{$id} ORDER BY id DESC LIMIT 1")
+    ];
 }
 
 if ($_GET['action'] === 'auth') {
