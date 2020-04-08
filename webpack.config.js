@@ -90,7 +90,7 @@ if (process.env.NODE_ENV === 'production') {
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"production"',
-        API_URL: '"http://readbible.club/api"'
+        API_URL: '"https://readbible.club/api"'
       }
     }),
     // disabled - throwing error ?

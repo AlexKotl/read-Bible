@@ -26,7 +26,7 @@ export default new Vuex.Store({
     state: {
         chapters: [],
         user: false,
-        font_size: 15,
+        font_size: 17,
     },
     getters: {
         getChapters(state) {

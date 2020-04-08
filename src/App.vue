@@ -68,6 +68,7 @@ export default {
     margin: 60px auto;
     padding: 0 8px;
     max-width: 500px;
+    font-size: 18px;
 }
 
 h1, h2 {
@@ -82,10 +83,10 @@ h1, h2 {
     color: black;
     text-decoration: none;
     border-radius: 5px;
-    margin: 3px 2px;
-    padding: 3px 5px;
+    margin: 4px 3px;
+    padding: 4px 7px;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 16px;
     min-width: 20px;
     text-align: center;
     display: inline-block;
