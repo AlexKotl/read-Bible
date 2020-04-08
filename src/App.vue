@@ -96,8 +96,8 @@ h1, h2 {
     }
 
     &.green {
-        background-color: #58a700;
-        box-shadow: 0px 3px 0 #78c800;
+        background-color: #78c800;
+        box-shadow: 0px 3px 0 #58a700;
         color: white;
 
         &:hover {

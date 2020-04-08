@@ -129,7 +129,7 @@ if ($_GET['action'] === 'mark_read') {
 
 if ($_GET['action'] === 'statistics' && $row_user['id'] > 0) {
     $data = [
-        'read_chapters' => (int)$db->get_row("SELECT count(*) FROM users_chapters WHERE user_id='{$row_user['id']}'"),
+        'read_chapters' => (int)$db->get_row("SELECT count(*) FROM users_chapters WHERE user_id='{$row_user['id']}' AND is_read=1"),
         'total_chapters' => (int)$db->get_row("SELECT count(*) FROM chapters"),
         'total_users' => (int)$db->get_row("SELECT count(*) FROM users"),
         'total_users_chapters' => (int)$db->get_row("SELECT count(*) FROM users_chapters"),
