@@ -68,6 +68,20 @@ export default {
     methods: {
         ...mapActions(["fetchChapters"]),
         ...mapMutations(["updateFontSize"]),
+        async getChapter(id) {
+            const res = await fetch(process.env.API_URL + '/?action=chapter&id=' + this.id);
+            const data = await res.json();
+            this.verses = data.verses;
+            this.chapter = data.chapter;
+
+            let is_read = false;
+            Object.values(this.getChapters).forEach((book) => {
+                let found = book.find( (chapter) => chapter.id == this.id && chapter.is_read == "1" );
+                if (found !== undefined) {
+                    is_read = true;
+                }
+            });
+        },
         async markRead() {
             // redirect unlogged users
             if (this.getUser.session_id === undefined) {
@@ -89,19 +103,14 @@ export default {
             return this.updateFontSize(this.getFontSize + 1);
         }
     },
-    async created() {
-        const res = await fetch(process.env.API_URL + '/?action=chapter&id=' + this.id);
-        const data = await res.json();
-        this.verses = data.verses;
-        this.chapter = data.chapter;
-
-        let is_read = false;
-        Object.values(this.getChapters).forEach((book) => {
-            let found = book.find( (chapter) => chapter.id == this.id && chapter.is_read == "1" );
-            if (found !== undefined) {
-                is_read = true;
-            }
-        });
+    created() {
+        this.getChapter(this.id);
+    },
+    watch: {
+        '$route'() {
+            this.getChapter(this.id);
+            window.scrollTo(0,0);
+        }
     }
 }
 </script>
