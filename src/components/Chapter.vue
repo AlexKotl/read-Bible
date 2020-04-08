@@ -1,12 +1,18 @@
 <template>
     <div>
         <h2>Глава</h2>
+        <div style="float:right">
+            <a @click="zoomOut" class="button">	&#8722;</a>
+            <a @click="zoomIn" class="button">+</a>
+        </div>
         <router-link :to="{ name: 'chapters' }">К оглавлению</router-link>
 
-        <p v-for="verse in verses" :key="'num' + verse.number" class="verse">
-            <sup>{{ verse.number }}</sup>
-            <span v-html="verse.text"></span>
-        </p>
+        <div :style="{ 'font-size': getFontSize + 'px' }">
+            <p v-for="verse in verses" :key="'num' + verse.number" class="verse">
+                <sup>{{ verse.number }}</sup>
+                <span v-html="verse.text"></span>
+            </p>
+        </div>
 
         <br/>
         <div class="chapter-footer">
@@ -32,7 +38,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions, mapMutations } from 'vuex';
 export default {
     props: ['id'],
     data() {
@@ -41,7 +47,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(["getUser", "getChapters", "getReadStatus"]),
+        ...mapGetters(["getUser", "getChapters", "getReadStatus", "getFontSize"]),
         isRead() {
             let is_read = false;
             Object.values(this.getChapters).forEach((book) => {
@@ -55,6 +61,7 @@ export default {
     },
     methods: {
         ...mapActions(["fetchChapters"]),
+        ...mapMutations(["updateFontSize"]),
         async markRead() {
             // redirect unlogged users
             if (this.getUser.session_id === undefined) {
@@ -68,6 +75,12 @@ export default {
             }).toString());
 
             this.fetchChapters();
+        },
+        zoomOut() {
+            this.updateFontSize(this.getFontSize - 1);
+        },
+        zoomIn() {
+            this.updateFontSize(this.getFontSize + 1);
         }
     },
     async created() {

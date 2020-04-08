@@ -18,11 +18,15 @@ export default new Vuex.Store({
         },
         setUser(state, user) {
             state.user = user;
+        },
+        updateFontSize(state, font_size) {
+            state.font_size = font_size;
         }
     },
     state: {
         chapters: [],
         user: false,
+        font_size: 15,
     },
     getters: {
         getChapters(state) {
@@ -30,6 +34,9 @@ export default new Vuex.Store({
         },
         getUser(state) {
             return state.user;
+        },
+        getFontSize(state) {
+            return state.font_size;
         }
     }
 })
