@@ -1,6 +1,6 @@
 <template>
     <div>
-        <StatisticsShort></StatisticsShort>
+        <StatisticsShort v-if="getUser.session_id"></StatisticsShort>
 
         <h2>Оглавление</h2>
         <div v-for="(chapters, book) in getChapters" :key="book">
@@ -25,7 +25,7 @@ import { mapGetters, mapActions } from "vuex";
 import StatisticsShort from './StatisticsShort.vue';
 
 export default {
-    computed: mapGetters(["getChapters"]),
+    computed: mapGetters(["getChapters", "getUser"]),
     methods: mapActions(["fetchChapters"]),
     components: { StatisticsShort },
 }

@@ -66,6 +66,7 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
     margin: 60px auto;
+    padding: 0 8px;
     max-width: 500px;
 }
 
@@ -112,6 +113,10 @@ h1, h2 {
 a {
     color: #42b983;
     cursor: pointer;
+}
+
+div {
+    box-sizing: border-box;
 }
 
 form {

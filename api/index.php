@@ -8,6 +8,11 @@ $db = new CMysql();
 // include "parser.php";
 
 $data = [];
+if (isset($_GET['session_id'])) {
+    $session_id = $db->filter($_GET['session_id']);
+    $row_user = $db->get_row("SELECT id, name, email, session FROM users WHERE session='{$session_id}'");
+}
+
 if ($_GET['action'] === 'chapters') {
     $user_id = (int)$db->get_row("SELECT id FROM users WHERE session='".$db->filter($_GET['session_id'])."' LIMIT 1");
 
@@ -113,6 +118,15 @@ if ($_GET['action'] === 'mark_read') {
         $data['code'] = 200;
         $data['messsage'] = "UPDATE users_chapters SET is_read='{$is_read}' WHERE user_id='{$user_id}' AND chapter_id='{$chapter_id}'";
     }
+}
+
+if ($_GET['action'] === 'statistics' && $row_user['id'] > 0) {
+    $data = [
+        'read_chapters' => (int)$db->get_row("SELECT count(*) FROM users_chapters WHERE user_id='{$row_user['id']}'"),
+        'total_chapters' => (int)$db->get_row("SELECT count(*) FROM chapters"),
+        'total_users' => (int)$db->get_row("SELECT count(*) FROM users"),
+        'total_users_chapters' => (int)$db->get_row("SELECT count(*) FROM users_chapters"),
+    ];
 }
 
 header('Access-Control-Allow-Origin: *');
