@@ -40,8 +40,6 @@ export default {
             }
             else {
                 localStorage.session_id = user.session_id;
-                localStorage.user_name = user.user_name;
-                localStorage.user_email = user.user_email;
 
                 this.setUser(user);
 

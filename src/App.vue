@@ -38,19 +38,22 @@ export default {
         ...mapActions(["fetchChapters"]),
         logout() {
             delete localStorage.session_id;
-            delete localStorage.user_name;
-            delete localStorage.user_email;
             this.setUser({});
             this.fetchChapters();
         }
     },
-    mounted() {
+    async mounted() {
+        // auth user
         if (localStorage.session_id !== undefined) {
-            this.setUser({
-                session_id: localStorage.session_id,
-                user_name: localStorage.user_name,
-                user_email: localStorage.user_email
-            });
+            const res = await fetch(process.env.API_URL + '/?action=verify_session&session_id=' + localStorage.session_id);
+            const data = await res.json();
+            if (data.user_name !== undefined) {
+                this.setUser({
+                    session_id: localStorage.session_id,
+                    user_name: data.user_name,
+                    user_email: data.user_email
+                });
+            }
         }
 
         // load chapters to store

@@ -78,6 +78,19 @@ if ($_GET['action'] === 'auth') {
     }
 }
 
+if ($_GET['action'] === 'verify_session') {
+    if ($row_user !== false) {
+        $data = [
+            'session_id' => $row_user['session'],
+            'user_name' => $row_user['name'],
+            'user_email' => $row_user['email'],
+        ];
+    }
+    else {
+        $data['error'] = "No user found with session {$_GET['session_id']}.";
+    }
+}
+
 if ($_GET['action'] === 'register') {
     $request_body = file_get_contents('php://input');
     $request_body = json_decode($request_body, true);
@@ -97,11 +110,11 @@ if ($_GET['action'] === 'register') {
             'session' => md5($email . $password),
         ]);
 
-        $user_row = $db->get_row("SELECT * FROM users WHERE id='" . $db->last_insert_id('users') . "'");
+        $row_user = $db->get_row("SELECT * FROM users WHERE id='" . $db->last_insert_id('users') . "'");
         $data = [
-            'session_id' => $user_row['session'],
-            'user_name' => $user_row['name'],
-            'user_email' => $user_row['email'],
+            'session_id' => $row_user['session'],
+            'user_name' => $row_user['name'],
+            'user_email' => $row_user['email'],
         ];
     }
 }
