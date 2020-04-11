@@ -35,7 +35,7 @@ export default {
     computed: {
         ...mapGetters(["getUser"]),
         totalPercents: function() {
-            return Math.round(this.stats.read_chapters / (this.stats.total_chapters) * 1000)/10;
+            return Math.round(this.stats.read_chars / (this.stats.total_chars) * 1000)/10;
         }
     },
     methods: {

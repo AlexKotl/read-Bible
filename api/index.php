@@ -144,6 +144,10 @@ if ($_GET['action'] === 'statistics' && $row_user['id'] > 0) {
     $data = [
         'read_chapters' => (int)$db->get_row("SELECT count(*) FROM users_chapters WHERE user_id='{$row_user['id']}' AND is_read=1"),
         'total_chapters' => (int)$db->get_row("SELECT count(*) FROM chapters"),
+        'read_chars' => (int)$db->get_row("SELECT SUM(chapters.chars) FROM users_chapters
+            LEFT JOIN chapters ON chapters.id=users_chapters.chapter_id
+            WHERE users_chapters.user_id='{$row_user['id']}' AND users_chapters.is_read=1"),
+        'total_chars' => (int)$db->get_row("SELECT SUM(chars) FROM chapters"),
         'total_users' => (int)$db->get_row("SELECT count(*) FROM users"),
         'total_users_chapters' => (int)$db->get_row("SELECT count(*) FROM users_chapters"),
     ];

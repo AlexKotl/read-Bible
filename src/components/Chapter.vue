@@ -35,8 +35,12 @@
             </div>
 
             <br/><br/>
-            <router-link :to="{ name: 'chapter', params: { id: chapter.prev_id } }" v-if="chapter.prev_id">&laquo; Предыдущая глава</router-link>
-            <router-link :to="{ name: 'chapter', params: { id: chapter.next_id } }" v-if="chapter.next_id" style="margin-left:40px">Следующая глава &raquo;</router-link>
+            <router-link :to="{ name: 'chapter', params: { id: chapter.prev_id } }" v-if="chapter.prev_id">
+                &laquo; Предыдущая
+            </router-link>
+            <router-link :to="{ name: 'chapter', params: { id: chapter.next_id } }" v-if="chapter.next_id" style="margin-left:40px">
+                Следующая &raquo;
+            </router-link>
 
         </div>
     </div>
