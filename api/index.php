@@ -151,6 +151,14 @@ if ($_GET['action'] === 'statistics' && $row_user['id'] > 0) {
         'total_users' => (int)$db->get_row("SELECT count(*) FROM users"),
         'total_users_chapters' => (int)$db->get_row("SELECT count(*) FROM users_chapters"),
     ];
+
+    // get data per past month
+    $res = $db->query("SELECT DATE(date_created) as date_created, COUNT(DISTINCT id) as count FROM users_chapters
+        WHERE date_created > CURRENT_DATE - INTERVAL 1 MONTH AND user_id='{$row_user['id']}'
+        GROUP BY date_created");
+    while ($row = $db->fetch($res)) {
+        $data['by_month'][$row['date_created']] = (int)$row['count'];
+    }
 }
 
 header('Access-Control-Allow-Origin: *');
