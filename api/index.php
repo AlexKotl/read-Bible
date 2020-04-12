@@ -153,9 +153,10 @@ if ($_GET['action'] === 'statistics' && $row_user['id'] > 0) {
     ];
 
     // get data per past month
-    $res = $db->query("SELECT DATE(date_created) as date_created, COUNT(DISTINCT id) as count FROM users_chapters
-        WHERE date_created > CURRENT_DATE - INTERVAL 1 MONTH AND user_id='{$row_user['id']}'
-        GROUP BY date_created");
+    $res = $db->query("SELECT DATE(users_chapters.date_created) as date_created, SUM(chapters.chars) as count FROM users_chapters
+        LEFT JOIN chapters ON chapters.id=users_chapters.chapter_id
+        WHERE users_chapters.date_created > CURRENT_DATE - INTERVAL 1 MONTH AND users_chapters.user_id='{$row_user['id']}'
+        GROUP BY users_chapters.date_created");
     while ($row = $db->fetch($res)) {
         $data['by_month'][$row['date_created']] = (int)$row['count'];
     }

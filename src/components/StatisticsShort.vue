@@ -1,7 +1,10 @@
 <template>
     <div>
+        <div>
+            <BarChart :chart-data="monthChartData"></BarChart>
+        </div>
         <div class="left">
-            <PieChart :chart-data="datacollection"></PieChart>
+            <PieChart :chart-data="pieChartData"></PieChart>
         </div>
         <div class="right">
             Прочитано:
@@ -23,12 +26,14 @@
 
 <script>
 import PieChart from './charts/PieChart.vue';
+import BarChart from './charts/BarChart.vue';
 import { mapGetters } from 'vuex';
 export default {
-    components: { PieChart },
+    components: { PieChart, BarChart },
     data () {
         return {
-            datacollection: null,
+            pieChartData: null,
+            monthChartData: null,
             stats: {}
         }
     },
@@ -39,9 +44,7 @@ export default {
         }
     },
     methods: {
-        test() {
-            console.log(this.getUser.session_id)
-        }
+
     },
     async created() {
         console.log(this.getUser)
@@ -53,12 +56,30 @@ export default {
         const res = await fetch(process.env.API_URL + "/?action=statistics&session_id=" + this.getUser.session_id);
         this.stats = await res.json();
 
-        this.datacollection = {
+        this.pieChartData = {
             labels: ['Прочитано', 'Не прочитано'],
             legend: { display: false },
             datasets: [{
                 backgroundColor: ['#5da85d', '#ebe293'],
                 data: [this.stats.read_chapters, this.stats.total_chapters]
+            }]
+        }
+
+        // format month chart
+        let monthData = [];
+        let labels = [];
+        for (let i=30; i>=0; i--) {
+            const date = new Date(new Date() - 60*60*24*1000 * i).toISOString().substr(0, 10);
+            const dayData = typeof this.stats.by_month[date] === 'number' ? this.stats.by_month[date] : 0;
+            monthData.push(dayData);
+            labels.push(date);
+        }
+        this.monthChartData = {
+            labels: labels,
+            legend: { display: false },
+            datasets: [{
+                backgroundColor: ['#5da85d'],
+                data: monthData
             }]
         }
     }
