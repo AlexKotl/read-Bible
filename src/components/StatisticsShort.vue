@@ -49,7 +49,8 @@ export default {
                     }],
                     yAxes: [{
                         ticks: {
-                            display: false
+                            display: false,
+                            beginAtZero: true
                         }
                     }]
                 },
