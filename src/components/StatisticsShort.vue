@@ -36,6 +36,7 @@ export default {
             pieChartData: null,
             monthChartData: null,
             stats: {},
+            monthChartTooltip: {},
             monthChartOptions: {
                 responsive: true,
                 maintainAspectRatio: false,
@@ -47,11 +48,18 @@ export default {
                         }
                     }],
                     yAxes: [{
-
                         ticks: {
                             display: false
                         }
                     }]
+                },
+                tooltips: {
+                    callbacks: {
+                        label: (t, d) => {
+                            const chapters = this.monthChartTooltip[t.label];
+                            return 'Глав прочитано: ' + chapters;
+                        }
+                    }
                 }
             }
         }
@@ -88,10 +96,12 @@ export default {
         let labels = [];
         for (let i=30; i>=0; i--) {
             const date = new Date(new Date() - 60*60*24*1000 * i).toISOString().substr(0, 10);
-            const dayData = typeof this.stats.by_month[date] === 'number' ? this.stats.by_month[date] : 0;
+            const dayData = this.stats.by_month[date] !== undefined ? this.stats.by_month[date].chars : 0;
             monthData.push(dayData);
             labels.push(date);
+            this.monthChartTooltip[date] = this.stats.by_month[date] !== undefined ? this.stats.by_month[date].chapters : 0;
         }
+        console.log(this.monthChartTooltip);
         this.monthChartData = {
             labels: labels,
             datasets: [{
