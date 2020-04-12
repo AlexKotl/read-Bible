@@ -1,8 +1,6 @@
 <template>
     <div>
-        <div>
-            <BarChart :chart-data="monthChartData"></BarChart>
-        </div>
+
         <div class="left">
             <PieChart :chart-data="pieChartData"></PieChart>
         </div>
@@ -21,6 +19,9 @@
             </div>
         </div>
         <br style="clear:both">
+        <div>
+            <BarChart :chart-data="monthChartData" :options="monthChartOptions" :styles="{height: '160px'}"></BarChart>
+        </div>
     </div>
 </template>
 
@@ -34,7 +35,25 @@ export default {
         return {
             pieChartData: null,
             monthChartData: null,
-            stats: {}
+            stats: {},
+            monthChartOptions: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    xAxes:[{
+                        display: false,
+                        ticks: {
+                            display: false
+                        }
+                    }],
+                    yAxes: [{
+
+                        ticks: {
+                            display: false
+                        }
+                    }]
+                }
+            }
         }
     },
     computed: {
@@ -58,7 +77,6 @@ export default {
 
         this.pieChartData = {
             labels: ['Прочитано', 'Не прочитано'],
-            legend: { display: false },
             datasets: [{
                 backgroundColor: ['#5da85d', '#ebe293'],
                 data: [this.stats.read_chapters, this.stats.total_chapters]
@@ -76,9 +94,9 @@ export default {
         }
         this.monthChartData = {
             labels: labels,
-            legend: { display: false },
             datasets: [{
-                backgroundColor: ['#5da85d'],
+                label: 'Дневной прогресс чтения',
+                backgroundColor: '#5ba1c3',
                 data: monthData
             }]
         }
