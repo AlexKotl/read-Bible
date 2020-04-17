@@ -8,7 +8,13 @@ $db = new CMysql();
 // include "parser.php";
 
 $data = [];
-$lang = 'ru';
+
+if (in_array($_GET['lang'], ['en', 'ua', 'ru'])) {
+    $lang = $_GET['lang'];
+}
+else {
+    $lang = 'ru';
+}
 
 if (isset($_GET['session_id'])) {
     $session_id = $db->filter($_GET['session_id']);
