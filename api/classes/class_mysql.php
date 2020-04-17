@@ -5,7 +5,7 @@ class CMysql {
 	public $table_name, $link;
 
    // connect to database
-   function CMysql($params=array()) {
+   function __construct($params=array()) {
    	   include __DIR__ . "/../db_config.php";
 
 	   $this->link = mysqli_connect($db_server,$db_user,$db_password,$db_name) or die("Cannot connect to Mysqli DB $db_server:$db_user");
