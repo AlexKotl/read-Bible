@@ -15,6 +15,7 @@
 
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex';
+import i18n from './../i18n';
 
 export default {
     data() {
@@ -26,7 +27,8 @@ export default {
         ...mapGetters(["getLang", "getFontSize"]),
         ...mapMutations(["updateLang"]),
         setLang: function(lang) {
-            console.log('Setting', lang)
+            console.log('Setting', lang);
+            i18n.locale = lang;
             this.updateLang(lang);
         }
     }
@@ -42,6 +44,7 @@ export default {
     box-shadow: 0 2px 4px #c3c3c3;
     padding: 15px;
     border-radius: 5px;
+    transform: translateX(500px);
 
     .option {
         border: 2px solid transparent;

@@ -1,5 +1,6 @@
 <template>
     <div id="app">
+        <Settings class="show"></Settings>
         <div class="menu-actions">
             <a class="button" @click="showSettings" style="float:right; font-size: 30px; padding: 0 10px; line-height: 32px; margin:0">
                 &#9881;
@@ -16,7 +17,7 @@
         </div>
 
         <router-link :to="{ name: 'chapters' }">
-            <h1>Библия</h1>
+            <h1>{{ $t('bible') }}</h1>
         </router-link>
 
         <div class="content">

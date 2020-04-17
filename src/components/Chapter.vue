@@ -60,7 +60,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(["getUser", "getChapters", "getReadStatus", "getFontSize"]),
+        ...mapGetters(["getUser", "getChapters", "getReadStatus", "getFontSize", "getLang"]),
         isRead() {
             let is_read = false;
             Object.values(this.getChapters).forEach((book) => {
@@ -76,7 +76,7 @@ export default {
         ...mapActions(["fetchChapters"]),
         ...mapMutations(["updateFontSize"]),
         async getChapter(id) {
-            const res = await fetch(process.env.API_URL + '/?action=chapter&id=' + this.id);
+            const res = await fetch(process.env.API_URL + '/?action=chapter&id=' + this.id + '&lang=' + this.getLang);
             const data = await res.json();
             this.verses = data.verses;
             this.chapter = data.chapter;
