@@ -106,7 +106,7 @@ export default {
         this.monthChartData = {
             labels: labels,
             datasets: [{
-                label: 'Дневной прогресс чтения',
+                label: 'Прогресс чтения за месяц',
                 backgroundColor: '#5ba1c3',
                 data: monthData
             }]
