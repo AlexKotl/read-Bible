@@ -1,5 +1,6 @@
 <?php
 // Parser to use saved JSON data files
+die('Disabled');
 
 include "db_config.php";
 include "classes/class_mysql.php";

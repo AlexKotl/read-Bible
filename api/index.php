@@ -8,6 +8,8 @@ $db = new CMysql();
 // include "parser.php";
 
 $data = [];
+$lang = 'ru';
+
 if (isset($_GET['session_id'])) {
     $session_id = $db->filter($_GET['session_id']);
     $row_user = $db->get_row("SELECT id, name, email, session FROM users WHERE session='{$session_id}'");
@@ -16,7 +18,7 @@ if (isset($_GET['session_id'])) {
 if ($_GET['action'] === 'chapters') {
     $user_id = (int)$db->get_row("SELECT id FROM users WHERE session='".$db->filter($_GET['session_id'])."' LIMIT 1");
 
-    $res = $db->query("SELECT books.name, chapters.number, chapters.id, users_chapters.is_read FROM chapters
+    $res = $db->query("SELECT books.name_{$lang} as name, chapters.number, chapters.id, users_chapters.is_read FROM chapters
         LEFT JOIN books ON books.id = chapters.book_id
         LEFT JOIN users_chapters ON users_chapters.user_id = '{$user_id}' AND users_chapters.chapter_id = chapters.id
         ORDER BY chapters.id") or die($db->error());
@@ -31,7 +33,7 @@ if ($_GET['action'] === 'chapters') {
 
 if ($_GET['action'] === 'chapter') {
     $id = (int)$_GET['id'];
-    $res = $db->query("SELECT * FROM verses WHERE chapter_id='{$id}'") or die($db->error());
+    $res = $db->query("SELECT * FROM verses WHERE chapter_id='{$id}' AND lang='{$lang}' ORDER BY number") or die($db->error());
     while ($row = $db->fetch($res)) {
         $data['verses'][] = [
             'number' => $row['number'],
@@ -41,7 +43,7 @@ if ($_GET['action'] === 'chapter') {
     $row_chapter = $db->get_row("SELECT * FROM chapters WHERE id='{$id}'");
     $data['chapter'] = [
         'number' => $row_chapter['number'],
-        'book_name' => $db->get_row("SELECT name FROM books WHERE id='{$row_chapter['book_id']}'"),
+        'book_name' => $db->get_row("SELECT name_{$lang} as name FROM books WHERE id='{$row_chapter['book_id']}'"),
         'next_id' => $db->get_row("SELECT id FROM chapters WHERE id>{$id} ORDER BY id LIMIT 1"),
         'prev_id' => $db->get_row("SELECT id FROM chapters WHERE id<{$id} ORDER BY id DESC LIMIT 1")
     ];
