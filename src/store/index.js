@@ -20,13 +20,19 @@ export default new Vuex.Store({
             state.user = user;
         },
         updateFontSize(state, font_size) {
+            localStorage.font_size = font_size;
             state.font_size = font_size;
+        },
+        updateLang(state, lang) {
+            localStorage.lang = lang;
+            state.lang = lang;
         }
     },
     state: {
         chapters: [],
         user: false,
-        font_size: 17,
+        font_size: localStorage.font_size || 17,
+        lang: localStorage.lang || 'ru',
     },
     getters: {
         getChapters(state) {
@@ -37,6 +43,9 @@ export default new Vuex.Store({
         },
         getFontSize(state) {
             return state.font_size;
+        },
+        getLang(state) {
+            return state.lang;
         }
     }
 })
