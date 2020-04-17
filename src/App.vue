@@ -1,6 +1,9 @@
 <template>
     <div id="app">
         <div class="menu-actions">
+            <a class="button" @click="showSettings" style="float:right; font-size: 30px; padding: 0 10px; line-height: 32px; margin:0">
+                &#9881;
+            </a>
 
             <div v-if="getUser.session_id">
                 Привет {{ getUser.user_name }},
@@ -24,10 +27,12 @@
 
 <script>
 import { mapGetters, mapMutations, mapActions } from "vuex";
+import Settings from "./components/Settings.vue";
 
 export default {
     name: 'app',
     computed: mapGetters(["getUser"]),
+    components: { Settings },
     data() {
         return {
             msg: 'Библия',
@@ -40,6 +45,9 @@ export default {
             delete localStorage.session_id;
             this.setUser({});
             this.fetchChapters();
+        },
+        showSettings() {
+
         }
     },
     async mounted() {
@@ -136,4 +144,5 @@ form {
         padding: 10px 20px;
     }
 }
+
 </style>
