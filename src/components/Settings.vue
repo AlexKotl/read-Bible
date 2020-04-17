@@ -1,15 +1,15 @@
 <template>
     <div id="settings-window">
-        <h2>Настройки</h2>
-        Язык:
+        <h2>{{ $t("Settings") }}</h2>
+        {{ $t("Language") }}:<br>
         <a @click="setLang('ua')" :class="{ 'selected': getLang() == 'ua'}" class="option">🇺🇦</a>
         <a @click="setLang('ru')" :class="{ 'selected': getLang() == 'ru'}" class="option">🇷🇺</a>
         <a @click="setLang('en')" :class="{ 'selected': getLang() == 'en'}" class="option">🇺🇸</a>
         <br/>
-        Тема:
-        Светлая / Темная
+        {{ $t("Theme") }}: <br>
+        {{ $t("Light") }} / {{ $t("Dark") }}
         <br><br>
-        <a class="button">Закрыть</a>
+        <a class="button">{{ $t("Close") }}</a>
     </div>
 </template>
 

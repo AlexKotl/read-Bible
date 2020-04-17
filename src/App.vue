@@ -7,17 +7,17 @@
             </a>
 
             <div v-if="getUser.session_id">
-                Привет {{ getUser.user_name }},
-                <a @click="logout" href="#">Выйти</a>
+                {{ $t('Hello') }} {{ getUser.user_name }},
+                <a @click="logout" href="#">{{ $t('Logout') }}</a>
             </div>
             <div v-else>
-                <router-link :to="{ name: 'login' }">Вход</router-link>
-                <router-link :to="{ name: 'registration' }">Регистрация</router-link>
+                <router-link :to="{ name: 'login' }">{{ $t('Login') }}</router-link>
+                <router-link :to="{ name: 'registration' }">{{ $t('Registration') }}</router-link>
             </div>
         </div>
 
         <router-link :to="{ name: 'chapters' }">
-            <h1>{{ $t('bible') }}</h1>
+            <h1>{{ $t('Bible') }}</h1>
         </router-link>
 
         <div class="content">
@@ -36,7 +36,6 @@ export default {
     components: { Settings },
     data() {
         return {
-            msg: 'Библия',
         }
     },
     methods: {
