@@ -6,7 +6,9 @@ include "classes/class_mysql.php";
 
 $db = new CMysql();
 
-foreach (['ru', 'ua', 'en'] as $lang) {
+$langs = ['ru', 'ua', 'en'];
+
+foreach ($langs as $lang) {
     $data[$lang] = simplexml_load_file("data/{$lang}.xml");
     echo "\nParsed {$lang}: ".count($data[$lang]) . " books";
 }
@@ -36,12 +38,12 @@ foreach ($data['en'] as $book) {
         foreach ($data['en']->BIBLEBOOK[$book_num]->CHAPTER[$chapter_num] as $verse) {
             echo "{$data['en']->BIBLEBOOK[$book_num]->CHAPTER[$chapter_num]->VERS[$verse_num]['vnumber']} ";
 
+            foreach ($langs as $lang)
             $db->insert('verses', [
                 'chapter_id' => $chapter_id,
+                'lang' => $lang,
                 'number' => $data['en']->BIBLEBOOK[$book_num]->CHAPTER[$chapter_num]->VERS[$verse_num]['vnumber'],
-                'content_en' => $data['en']->BIBLEBOOK[$book_num]->CHAPTER[$chapter_num]->VERS[$verse_num],
-                'content_ua' => $data['ua']->BIBLEBOOK[$book_num]->CHAPTER[$chapter_num]->VERS[$verse_num],
-                'content_ru' => $data['ru']->BIBLEBOOK[$book_num]->CHAPTER[$chapter_num]->VERS[$verse_num],
+                'content' => $data[$lang]->BIBLEBOOK[$book_num]->CHAPTER[$chapter_num]->VERS[$verse_num],
             ]);
 
             $verse_num++;
