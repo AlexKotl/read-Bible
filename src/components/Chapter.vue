@@ -38,7 +38,10 @@
             <router-link :to="{ name: 'chapter', params: { id: chapter.prev_id } }" v-if="chapter.prev_id">
                 &laquo; Предыдущая
             </router-link>
-            <router-link :to="{ name: 'chapter', params: { id: chapter.next_id } }" v-if="chapter.next_id" style="margin-left:40px">
+            <router-link :to="{ name: 'chapters' }" style="font-size: 30px; margin: 0 20px; text-decoration:none">
+                &#8962;
+            </router-link>
+            <router-link :to="{ name: 'chapter', params: { id: chapter.next_id } }" v-if="chapter.next_id">
                 Следующая &raquo;
             </router-link>
 
