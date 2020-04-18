@@ -1,15 +1,21 @@
 <template>
     <div>
-        <a class="button" @click="showWindow = true" style="float:right; font-size: 30px; padding: 0 10px; line-height: 32px; margin:0">
-            &#9881;
+        <a class="button" @click="showWindow = true" style="float:right; padding: 0 10px; line-height: 34px; margin:-6px 0 0 0;">
+            <img :src="require('../assets/cog.png')" width="26" height="26" style="vertical-align:middle" />
         </a>
 
         <div id="settings-window" :class="{show: showWindow}">
             <h2>{{ $t("Settings") }}</h2>
             {{ $t("Language") }}:<br>
-            <a @click="setLang('en')" :class="{ 'selected': getLang() == 'en'}" class="option">🇺🇸</a>
-            <a @click="setLang('ua')" :class="{ 'selected': getLang() == 'ua'}" class="option">🇺🇦</a>
-            <a @click="setLang('ru')" :class="{ 'selected': getLang() == 'ru'}" class="option">🇷🇺</a>
+            <a @click="setLang('en')" :class="{ 'selected': getLang() == 'en'}" class="option">
+                <img :src="require('../assets/en.png')" width="48" height="48"  />
+            </a>
+            <a @click="setLang('ua')" :class="{ 'selected': getLang() == 'ua'}" class="option">
+                <img :src="require('../assets/ua.png')" width="48" height="48"  />
+            </a>
+            <a @click="setLang('ru')" :class="{ 'selected': getLang() == 'ru'}" class="option">
+                <img :src="require('../assets/ru.png')" width="48" height="48"  />
+            </a>
             <br/><br>
             {{ $t("Theme") }}: <br>
             <a @click="updateTheme('light')" :class="{ 'selected': getTheme() == 'light'}" class="option">
@@ -55,12 +61,12 @@ export default {
     padding: 15px 20px;
     border-radius: 5px;
     transform: translateY(-500px);
-    //opacity: 0;
+    text-align: center;
     transition: all ease-out 0.3s;
     will-change: transform;
 
     &.show {
-        transform: translateY(0);
+        transform: translateY(-10px);
         //opacity: 1;
     }
 

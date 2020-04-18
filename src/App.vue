@@ -10,7 +10,7 @@
                 </div>
                 <div v-else>
                     <router-link :to="{ name: 'login' }">{{ $t('Login') }}</router-link>
-                    <router-link :to="{ name: 'registration' }">{{ $t('Registration') }}</router-link>
+                    <router-link :to="{ name: 'registration' }" style="margin-left:10px">{{ $t('Registration') }}</router-link>
                 </div>
             </div>
 
@@ -79,7 +79,7 @@ export default {
 
     .container {
         margin: auto;
-        padding: 60px 8px 300px 8px;
+        padding: 20px 8px 300px 8px;
         max-width: 500px;
     }
 
