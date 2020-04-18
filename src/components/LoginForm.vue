@@ -1,11 +1,11 @@
 <template>
     <div>
-        <h1>Вход</h1>
+        <h1>{{ $t("Enter") }}</h1>
         <h3>{{ message }}</h3>
         <form @submit.prevent="submit">
-            <input type="text" v-model="email" value="" placeholder="Логин">
-            <input type="password" v-model="password" value="" placeholder="Пароль">
-            <input type="submit" name="" value="Вход" class="button">
+            <input type="text" v-model="email" value="" :placeholder="$t('Login')" />
+            <input type="password" v-model="password" value="" :placeholder="$t('Password')" />
+            <input type="submit" name="" :value="$t('Enter')" class="button" />
         </form>
     </div>
 

@@ -5,15 +5,15 @@
             <PieChart :chart-data="pieChartData"></PieChart>
         </div>
         <div class="right">
-            Прочитано:
+            {{ $t("Readed") }}:
             <div class='number'>
                 {{ this.totalPercents }}%
             </div>
-            Прочитано глав:
+            {{ $t("ReadedChapters") }}:
             <div class='number'>
                 {{ this.stats.read_chapters }}/{{ this.stats.total_chapters }}
             </div>
-            Наши пользователи прочитали глав:
+            {{ $t("UsersReadedChapters") }}:
             <div class='number'>
                 {{ this.stats.total_users_chapters }} ({{ this.stats.total_users }})
             </div>
@@ -58,7 +58,7 @@ export default {
                     callbacks: {
                         label: (t, d) => {
                             const chapters = this.monthChartTooltip[t.label];
-                            return 'Глав прочитано: ' + chapters;
+                            return this.$t('ReadedChapters') + ': ' + chapters;
                         }
                     }
                 }
@@ -85,7 +85,7 @@ export default {
         this.stats = await res.json();
 
         this.pieChartData = {
-            labels: ['Прочитано', 'Не прочитано'],
+            labels: [this.$t('Readed'), this.$t('NotReaded')],
             datasets: [{
                 backgroundColor: ['#5da85d', '#ebe293'],
                 data: [this.stats.read_chapters, this.stats.total_chapters]
@@ -106,7 +106,7 @@ export default {
         this.monthChartData = {
             labels: labels,
             datasets: [{
-                label: 'Дневной прогресс чтения',
+                label: this.$t('ProgressForMonth'),
                 backgroundColor: '#5ba1c3',
                 data: monthData
             }]

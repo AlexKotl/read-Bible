@@ -4,7 +4,8 @@
 
 ## General info
 API used for Bible: `https://bibleonline.docs.apiary.io/#reference/0`
-Tutorial: https://github.com/DChuchin/vue-spa-tutorial/blob/step-5/src/components/Post.vue
+Second API: `https://getbible.net/api`
+XML Sources: `https://www.ph4.org/b4_mobi.php?q=zefania`
 
 ## Build Setup
 
