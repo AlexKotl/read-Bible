@@ -75,4 +75,9 @@ export default {
         border: 2px solid #42b983;
     }
 }
+
+#app.dark #settings-window {
+    background-color: #4e4e4e;
+    box-shadow: 0 2px 16px #222222;
+}
 </style>

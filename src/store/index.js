@@ -35,7 +35,7 @@ export default new Vuex.Store({
     state: {
         chapters: [],
         user: false,
-        font_size: localStorage.font_size || 17,
+        font_size: parseInt(localStorage.font_size) || 17,
         lang: localStorage.lang || 'ru',
         theme: localStorage.theme || 'light',
     },

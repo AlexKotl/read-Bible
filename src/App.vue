@@ -1,25 +1,26 @@
 <template>
-    <div id="app">
+    <div id="app" :class="{dark: getTheme === 'dark'}">
+        <div class="container">
+            <div class="menu-actions">
+                <Settings class="show"></Settings>
 
-        <div class="menu-actions">
-            <Settings class="show"></Settings>
-
-            <div v-if="getUser.session_id">
-                {{ $t('Hello') }} {{ getUser.user_name }},
-                <a @click="logout" href="#">{{ $t('Logout') }}</a>
+                <div v-if="getUser.session_id">
+                    {{ $t('Hello') }} {{ getUser.user_name }},
+                    <a @click="logout" href="#">{{ $t('Logout') }}</a>
+                </div>
+                <div v-else>
+                    <router-link :to="{ name: 'login' }">{{ $t('Login') }}</router-link>
+                    <router-link :to="{ name: 'registration' }">{{ $t('Registration') }}</router-link>
+                </div>
             </div>
-            <div v-else>
-                <router-link :to="{ name: 'login' }">{{ $t('Login') }}</router-link>
-                <router-link :to="{ name: 'registration' }">{{ $t('Registration') }}</router-link>
+
+            <router-link :to="{ name: 'chapters' }">
+                <h1>{{ $t('Bible') }}</h1>
+            </router-link>
+
+            <div class="content">
+                <router-view></router-view>
             </div>
-        </div>
-
-        <router-link :to="{ name: 'chapters' }">
-            <h1>{{ $t('Bible') }}</h1>
-        </router-link>
-
-        <div class="content">
-            <router-view></router-view>
         </div>
     </div>
 </template>
@@ -30,7 +31,7 @@ import Settings from "./components/Settings.vue";
 
 export default {
     name: 'app',
-    computed: mapGetters(["getUser"]),
+    computed: mapGetters(["getUser", "getTheme"]),
     components: { Settings },
     data() {
         return {
@@ -74,10 +75,24 @@ export default {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
-    margin: 60px auto;
-    padding: 0 8px;
-    max-width: 500px;
     font-size: 18px;
+
+    .container {
+        margin: auto;
+        padding: 60px 8px 50px 8px;
+        max-width: 500px;
+    }
+
+    &.dark {
+        background-color: #333;
+        color: white;
+
+        h1, h2 {
+            color: #768fa9;
+        }
+    }
+
+
 }
 
 h1, h2 {
