@@ -79,7 +79,7 @@ export default {
 
     .container {
         margin: auto;
-        padding: 60px 8px 50px 8px;
+        padding: 60px 8px 300px 8px;
         max-width: 500px;
     }
 

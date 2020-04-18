@@ -3,11 +3,11 @@
         <h2>{{ $t("RegisterUser") }}</h2>
         <h3>{{ message }}</h3>
         <form @submit.prevent="submit">
-            <input type="text" v-model="name" placeholder="{{ $t("Name") }}">
-            <input type="email" v-model="email" placeholder="{{ $t("Email") }}" required>
-            <input type="password" v-model="password" placeholder="{{ $t("Password") }}" required>
-            <input type="password" v-model="password_confirm" placeholder="{{ $t("PasswordOneMore") }}" required>
-            <input type="submit" value="{{ $t("Register") }}" class="button">
+            <input type="text" v-model="name" :placeholder="$t('Name')">
+            <input type="email" v-model="email" :placeholder="$t('Email')" required>
+            <input type="password" v-model="password" :placeholder="$t('Password')" required>
+            <input type="password" v-model="password_confirm" :placeholder="$t('PasswordOneMore')" required>
+            <input type="submit" :value="$t('Register')" class="button">
         </form>
     </div>
 </template>
