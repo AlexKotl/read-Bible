@@ -1,15 +1,26 @@
 <template>
-    <div id="settings-window">
-        <h2>{{ $t("Settings") }}</h2>
-        {{ $t("Language") }}:<br>
-        <a @click="setLang('ua')" :class="{ 'selected': getLang() == 'ua'}" class="option">🇺🇦</a>
-        <a @click="setLang('ru')" :class="{ 'selected': getLang() == 'ru'}" class="option">🇷🇺</a>
-        <a @click="setLang('en')" :class="{ 'selected': getLang() == 'en'}" class="option">🇺🇸</a>
-        <br/>
-        {{ $t("Theme") }}: <br>
-        {{ $t("Light") }} / {{ $t("Dark") }}
-        <br><br>
-        <a class="button">{{ $t("Close") }}</a>
+    <div>
+        <a class="button" @click="showWindow = true" style="float:right; font-size: 30px; padding: 0 10px; line-height: 32px; margin:0">
+            &#9881;
+        </a>
+
+        <div id="settings-window" :class="{show: showWindow}">
+            <h2>{{ $t("Settings") }}</h2>
+            {{ $t("Language") }}:<br>
+            <a @click="setLang('ua')" :class="{ 'selected': getLang() == 'ua'}" class="option">🇺🇦</a>
+            <a @click="setLang('ru')" :class="{ 'selected': getLang() == 'ru'}" class="option">🇷🇺</a>
+            <a @click="setLang('en')" :class="{ 'selected': getLang() == 'en'}" class="option">🇺🇸</a>
+            <br/>
+            {{ $t("Theme") }}: <br>
+            <a @click="updateTheme('light')" :class="{ 'selected': getTheme() == 'light'}" class="option">
+                {{ $t("Light") }}
+            </a> /
+            <a @click="updateTheme('dark')" :class="{ 'selected': getTheme() == 'dark'}" class="option">
+                {{ $t("Dark") }}
+            </a>
+            <br><br>
+            <a class="button" @click="showWindow = false">{{ $t("Close") }}</a>
+        </div>
     </div>
 </template>
 
@@ -20,14 +31,13 @@ import i18n from './../i18n';
 export default {
     data() {
         return {
-
+            showWindow: false
         }
     },
     methods: {
-        ...mapGetters(["getLang", "getFontSize"]),
-        ...mapMutations(["updateLang"]),
+        ...mapGetters(["getLang", "getFontSize", "getTheme"]),
+        ...mapMutations(["updateLang", "updateTheme"]),
         setLang: function(lang) {
-            console.log('Setting', lang);
             i18n.locale = lang;
             this.updateLang(lang);
         }
@@ -37,14 +47,22 @@ export default {
 
 <style lang="scss" scoped>
 #settings-window {
-    position: absolute;
+    position: fixed;
     background-color: white;
     max-width: 500px;
     width: 100%;
-    box-shadow: 0 2px 4px #c3c3c3;
+    box-shadow: 0 2px 16px #c3c3c3;
     padding: 15px;
     border-radius: 5px;
-    transform: translateX(500px);
+    transform: translateY(-500px);
+    //opacity: 0;
+    transition: all ease-out 0.3s;
+    will-change: transform;
+
+    &.show {
+        transform: translateY(0);
+        //opacity: 1;
+    }
 
     .option {
         border: 2px solid transparent;

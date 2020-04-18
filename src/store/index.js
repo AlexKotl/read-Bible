@@ -26,6 +26,10 @@ export default new Vuex.Store({
         updateLang(state, lang) {
             localStorage.lang = lang;
             state.lang = lang;
+        },
+        updateTheme(state, theme) {
+            localStorage.theme = theme;
+            state.theme = theme;
         }
     },
     state: {
@@ -33,6 +37,7 @@ export default new Vuex.Store({
         user: false,
         font_size: localStorage.font_size || 17,
         lang: localStorage.lang || 'ru',
+        theme: localStorage.theme || 'light',
     },
     getters: {
         getChapters(state) {
@@ -46,6 +51,9 @@ export default new Vuex.Store({
         },
         getLang(state) {
             return state.lang;
+        },
+        getTheme(state) {
+            return state.theme;
         }
     }
 })

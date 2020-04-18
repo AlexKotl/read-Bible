@@ -1,10 +1,8 @@
 <template>
     <div id="app">
-        <Settings class="show"></Settings>
+
         <div class="menu-actions">
-            <a class="button" @click="showSettings" style="float:right; font-size: 30px; padding: 0 10px; line-height: 32px; margin:0">
-                &#9881;
-            </a>
+            <Settings class="show"></Settings>
 
             <div v-if="getUser.session_id">
                 {{ $t('Hello') }} {{ getUser.user_name }},
