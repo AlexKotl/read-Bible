@@ -64,6 +64,7 @@ export default {
     text-align: center;
     transition: all ease-out 0.3s;
     will-change: transform;
+    margin-left: -8px;
 
     &.show {
         transform: translateY(-10px);
