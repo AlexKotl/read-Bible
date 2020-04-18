@@ -56,7 +56,8 @@ export default {
     data() {
         return {
             verses: [],
-            chapter: {}
+            chapter: {},
+            currentLang: this.getLang,
         }
     },
     computed: {
@@ -112,6 +113,14 @@ export default {
     },
     created() {
         this.getChapter(this.id);
+
+        // watch for lang change to update chapter
+        this.$store.watch(
+            (state, getters) => this.$store.state.lang,
+            (newValue, oldValue) => {
+                this.getChapter(this.id);
+            },
+        );
     },
     watch: {
         '$route'() {

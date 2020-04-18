@@ -7,10 +7,10 @@
         <div id="settings-window" :class="{show: showWindow}">
             <h2>{{ $t("Settings") }}</h2>
             {{ $t("Language") }}:<br>
+            <a @click="setLang('en')" :class="{ 'selected': getLang() == 'en'}" class="option">🇺🇸</a>
             <a @click="setLang('ua')" :class="{ 'selected': getLang() == 'ua'}" class="option">🇺🇦</a>
             <a @click="setLang('ru')" :class="{ 'selected': getLang() == 'ru'}" class="option">🇷🇺</a>
-            <a @click="setLang('en')" :class="{ 'selected': getLang() == 'en'}" class="option">🇺🇸</a>
-            <br/>
+            <br/><br>
             {{ $t("Theme") }}: <br>
             <a @click="updateTheme('light')" :class="{ 'selected': getTheme() == 'light'}" class="option">
                 {{ $t("Light") }}
@@ -19,7 +19,7 @@
                 {{ $t("Dark") }}
             </a>
             <br><br>
-            <a class="button" @click="showWindow = false">{{ $t("Close") }}</a>
+            <a class="button" @click="showWindow = false" style='padding: 5px 15px'>{{ $t("Close") }}</a>
         </div>
     </div>
 </template>
@@ -52,7 +52,7 @@ export default {
     max-width: 500px;
     width: 100%;
     box-shadow: 0 2px 16px #c3c3c3;
-    padding: 15px;
+    padding: 15px 20px;
     border-radius: 5px;
     transform: translateY(-500px);
     //opacity: 0;
