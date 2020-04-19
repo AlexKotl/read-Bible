@@ -88,7 +88,7 @@ export default {
         color: white;
 
         h1, h2 {
-            color: #768fa9;
+            color: #949ea9;
         }
     }
 
@@ -140,7 +140,7 @@ a {
     cursor: pointer;
 }
 
-div {
+div, form {
     box-sizing: border-box;
 }
 
@@ -152,6 +152,7 @@ form {
         margin-bottom: 7px;
         border-radius: 3px;
         border: 1px solid #c7c7c7;
+        box-sizing: border-box;
     }
     .button {
         padding: 10px 20px;
