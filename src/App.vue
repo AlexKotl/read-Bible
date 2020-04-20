@@ -1,36 +1,40 @@
 <template>
-    <div id="app">
-        <div class="menu-actions">
+    <div id="app" :class="{dark: getTheme === 'dark'}">
+        <div class="container">
+            <div class="menu-actions">
+                <Settings class="show"></Settings>
 
-            <div v-if="getUser.session_id">
-                Привет {{ getUser.user_name }},
-                <a @click="logout" href="#">Выйти</a>
+                <div v-if="getUser.session_id">
+                    {{ $t('Hello') }} {{ getUser.user_name }},
+                    <a @click="logout" href="#">{{ $t('Logout') }}</a>
+                </div>
+                <div v-else>
+                    <router-link :to="{ name: 'login' }">{{ $t('Login') }}</router-link>
+                    <router-link :to="{ name: 'registration' }" style="margin-left:10px">{{ $t('Registration') }}</router-link>
+                </div>
             </div>
-            <div v-else>
-                <router-link :to="{ name: 'login' }">Вход</router-link>
-                <router-link :to="{ name: 'registration' }">Регистрация</router-link>
+
+            <router-link :to="{ name: 'chapters' }">
+                <h1>{{ $t('Bible') }}</h1>
+            </router-link>
+
+            <div class="content">
+                <router-view></router-view>
             </div>
-        </div>
-
-        <router-link :to="{ name: 'chapters' }">
-            <h1>Библия</h1>
-        </router-link>
-
-        <div class="content">
-            <router-view></router-view>
         </div>
     </div>
 </template>
 
 <script>
 import { mapGetters, mapMutations, mapActions } from "vuex";
+import Settings from "./components/Settings.vue";
 
 export default {
     name: 'app',
-    computed: mapGetters(["getUser"]),
+    computed: mapGetters(["getUser", "getTheme"]),
+    components: { Settings },
     data() {
         return {
-            msg: 'Библия',
         }
     },
     methods: {
@@ -40,6 +44,9 @@ export default {
             delete localStorage.session_id;
             this.setUser({});
             this.fetchChapters();
+        },
+        showSettings() {
+
         }
     },
     async mounted() {
@@ -68,10 +75,24 @@ export default {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
-    margin: 60px auto;
-    padding: 0 8px;
-    max-width: 500px;
     font-size: 18px;
+
+    .container {
+        margin: auto;
+        padding: 20px 8px 300px 8px;
+        max-width: 500px;
+    }
+
+    &.dark {
+        background-color: #333;
+        color: white;
+
+        h1, h2 {
+            color: #949ea9;
+        }
+    }
+
+
 }
 
 h1, h2 {
@@ -119,7 +140,7 @@ a {
     cursor: pointer;
 }
 
-div {
+div, form {
     box-sizing: border-box;
 }
 
@@ -131,9 +152,11 @@ form {
         margin-bottom: 7px;
         border-radius: 3px;
         border: 1px solid #c7c7c7;
+        box-sizing: border-box;
     }
     .button {
         padding: 10px 20px;
     }
 }
+
 </style>

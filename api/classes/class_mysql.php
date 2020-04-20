@@ -5,7 +5,7 @@ class CMysql {
 	public $table_name, $link;
 
    // connect to database
-   function CMysql($params=array()) {
+   function __construct($params=array()) {
    	   include __DIR__ . "/../db_config.php";
 
 	   $this->link = mysqli_connect($db_server,$db_user,$db_password,$db_name) or die("Cannot connect to Mysqli DB $db_server:$db_user");
@@ -34,13 +34,6 @@ class CMysql {
             $result = $db->query($string);
         }
         $end_time = microtime(true);
-
-        if (DEBUG_MODE===true && ($end_time - $start_time)*100>5) {
-            $info = debug_backtrace();
-            $stack_num = 0;
-            while ($info[$stack_num][file]==__FILE__) $stack_num++;
-            echo "<li>Query too slow (".round(($end_time - $start_time)*100,2)." ms): $string (Line ".$info[$stack_num][line]." in ".basename($info[$stack_num][file]).")";
-        }
 
         if ($result===false) return false;
 

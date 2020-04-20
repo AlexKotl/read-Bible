@@ -1,12 +1,12 @@
 <template>
     <div>
         <h2>{{ chapter.book_name }}</h2>
-        <h3>Глава {{ chapter.number }}</h3>
+        <h3>{{ $t('Chapter') }} {{ chapter.number }}</h3>
         <div style="float:right">
             <a @click="zoomOut" class="button">	&#8722;</a>
             <a @click="zoomIn" class="button">+</a>
         </div>
-        <router-link :to="{ name: 'chapters' }">К оглавлению</router-link>
+        <router-link :to="{ name: 'chapters' }">{{ $t('ToIndex') }}</router-link>
 
         <div :style="{ 'font-size': getFontSize + 'px' }">
             <p v-for="verse in verses" :key="'num' + verse.number" class="verse">
@@ -18,28 +18,31 @@
         <br/>
         <div class="chapter-footer">
             <div v-if="!getUser.session_id">
-                <router-link :to="{ name: 'login' }" class="button disabled">Отметить главу прочитанной {{getUser.session_id}}</router-link>
-                <br/><small>Необходимо <router-link :to="{ name: 'login' }">авторизироваться</router-link>, чтоб отметить главу как прочитанную</small>
+                <router-link :to="{ name: 'login' }" class="button disabled">{{ $t('MarkChapterAsRead') }} {{getUser.session_id}}</router-link>
+                <br/><small>{{ $t('YouNeed') }} <router-link :to="{ name: 'login' }">{{ $t('authorize') }}</router-link>, {{ $t('toMarkChapterAsRead') }}</small>
             </div>
             <div v-else-if="isRead">
                 <button class="button green" @click="markRead">
-                    &#10004; &nbsp; Глава уже прочитана
+                    &#10004; &nbsp; {{ $t('ChapterAlreadyRead') }}
                 </button>
-                <br/><small>Нажмите еще раз чтобы отметить главу как не прочитанную</small>
+                <br/><small>{{ $t('PressAgainToMarkAsRead') }}</small>
             </div>
             <div v-else>
                 <button class="button green" @click="markRead">
-                    Отметить главу прочитанной
+                    {{ $t('MarkAsRead') }}
                 </button>
-                <br/><small>После прочтения главы не забудьте нажать эту кнопку</small>
+                <br/><small>{{ $t('AfterReadPressButton') }}</small>
             </div>
 
             <br/><br/>
             <router-link :to="{ name: 'chapter', params: { id: chapter.prev_id } }" v-if="chapter.prev_id">
-                &laquo; Предыдущая
+                &laquo; {{ $t('Previous') }}
             </router-link>
-            <router-link :to="{ name: 'chapter', params: { id: chapter.next_id } }" v-if="chapter.next_id" style="margin-left:40px">
-                Следующая &raquo;
+            <router-link :to="{ name: 'chapters' }" style="font-size: 30px; margin: 0 20px; text-decoration:none">
+                &#8962;
+            </router-link>
+            <router-link :to="{ name: 'chapter', params: { id: chapter.next_id } }" v-if="chapter.next_id">
+                {{ $t('Next') }} &raquo;
             </router-link>
 
         </div>
@@ -55,11 +58,12 @@ export default {
     data() {
         return {
             verses: [],
-            chapter: {}
+            chapter: {},
+            currentLang: this.getLang,
         }
     },
     computed: {
-        ...mapGetters(["getUser", "getChapters", "getReadStatus", "getFontSize"]),
+        ...mapGetters(["getUser", "getChapters", "getReadStatus", "getFontSize", "getLang"]),
         isRead() {
             let is_read = false;
             Object.values(this.getChapters).forEach((book) => {
@@ -75,7 +79,7 @@ export default {
         ...mapActions(["fetchChapters"]),
         ...mapMutations(["updateFontSize"]),
         async getChapter(id) {
-            const res = await fetch(process.env.API_URL + '/?action=chapter&id=' + this.id);
+            const res = await fetch(process.env.API_URL + '/?action=chapter&id=' + this.id + '&lang=' + this.getLang);
             const data = await res.json();
             this.verses = data.verses;
             this.chapter = data.chapter;
@@ -111,6 +115,14 @@ export default {
     },
     created() {
         this.getChapter(this.id);
+
+        // watch for lang change to update chapter
+        this.$store.watch(
+            (state, getters) => this.$store.state.lang,
+            (newValue, oldValue) => {
+                this.getChapter(this.id);
+            },
+        );
     },
     watch: {
         '$route'() {

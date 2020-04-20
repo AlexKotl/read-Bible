@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import store from './store';
 import Router from 'vue-router';
+import i18n from './i18n';
 import App from './App.vue';
 import Chapters from './components/Chapters.vue';
 import Chapter from './components/Chapter.vue';
@@ -35,6 +36,7 @@ const router = new Router({
 
 new Vue({
     store,
+    i18n,
     el: '#app',
     render: h => h(App),
     router

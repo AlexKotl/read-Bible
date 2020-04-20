@@ -2,7 +2,7 @@
     <div>
         <StatisticsShort v-if="getUser.session_id"></StatisticsShort>
 
-        <h2>Оглавление</h2>
+        <h2>{{ $t("Index") }}</h2>
         <div v-for="(chapters, book) in getChapters" :key="book">
             {{ book }}
             <div>
