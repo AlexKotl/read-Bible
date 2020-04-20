@@ -36,7 +36,21 @@ export default new Vuex.Store({
         chapters: [],
         user: false,
         font_size: parseInt(localStorage.font_size) || 17,
-        lang: localStorage.lang || 'ru',
+        lang: function() {
+            // detect language by browser
+            let detected = 'en';
+            if (localStorage.lang) {
+                return localStorage.lang;
+            }
+            else if (navigator.languages.join(' ').indexOf('uk') !== -1) {
+                detected = 'ua';
+            }
+            else if (navigator.languages.join(' ').indexOf('ru') !== -1) {
+                detected = 'ru'
+            }
+            localStorage.lang = detected;
+            return detected;
+        }(),
         theme: localStorage.theme || 'light',
     },
     getters: {
