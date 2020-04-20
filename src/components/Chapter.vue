@@ -48,8 +48,10 @@
 
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex';
+import Achievement from './Achievement';
 export default {
     props: ['id'],
+    components: { Achievement },
     data() {
         return {
             verses: [],
