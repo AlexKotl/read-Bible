@@ -173,6 +173,13 @@ if ($_GET['action'] === 'statistics' && $row_user['id'] > 0) {
     }
 }
 
+if ($_GET['action'] === 'get_achievements') {
+    include "actions/get_achievements.php";
+}
+if ($_GET['action'] === 'check_achievements') {
+    include "actions/check_achievements.php";
+}
+
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 echo json_encode($data);
