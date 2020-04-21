@@ -23,11 +23,15 @@
             <BarChart :chart-data="monthChartData" :options="monthChartOptions" :styles="{height: '160px'}"></BarChart>
         </div>
         <div class="achievements">
-            {{ $t("Achievements") }}:
             <span v-for="achievement in stats.achievements" :key="'ach_'+achievement.id">
-                <img :src="require('../assets/achievements/default.png')" :title="achievement.title" :class="{disabled: achievement.is_done == '0'}" width="24" height="24" alt="" >
+                <img :src="require('../assets/achievements/default.png')" :title="achievement.title" :class="{disabled: achievement.is_done == 0}" width="32" height="32" alt="" >
             </span>
+
+            <router-link :to="{ name: 'achievements' }" class="button">
+                {{ $t("Achievements") }}
+            </router-link>
         </div>
+        <br style="clear:both">
     </div>
 </template>
 
@@ -137,11 +141,15 @@ export default {
     }
 }
 .achievements {
-    margin-top:8px;
+    margin-top:18px;
     font-size: 18px;
+    display: block;
+    .button {
+        float:right;
+    }
     span {
         margin: 0 4px;
-        float: right;
+        float: left;
 
         .disabled {
             filter: grayscale(1);
