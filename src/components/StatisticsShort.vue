@@ -11,7 +11,7 @@
             </div>
             {{ $t("ReadedChapters") }}:
             <div class='number'>
-                {{ this.stats.read_chapters }}/{{ this.stats.total_chapters }}
+                {{ this.stats.read_chapters }}
             </div>
             {{ $t("UsersReadedChapters") }}:
             <div class='number'>
@@ -21,6 +21,12 @@
         <br style="clear:both">
         <div>
             <BarChart :chart-data="monthChartData" :options="monthChartOptions" :styles="{height: '160px'}"></BarChart>
+        </div>
+        <div class="achievements">
+            {{ $t("Achievements") }}:
+            <span v-for="achievement in stats.achievements" :key="'ach_'+achievement.id">
+                <img :src="require('../assets/achievements/default.png')" :title="achievement.title" :class="{disabled: achievement.is_done == '0'}" width="24" height="24" alt="" >
+            </span>
         </div>
     </div>
 </template>
@@ -102,7 +108,6 @@ export default {
             labels.push(date);
             this.monthChartTooltip[date] = this.stats.by_month[date] !== undefined ? this.stats.by_month[date].chapters : 0;
         }
-        console.log(this.monthChartTooltip);
         this.monthChartData = {
             labels: labels,
             datasets: [{
@@ -129,6 +134,18 @@ export default {
     .number {
         font-size: 26px;
         margin-bottom: 10px;
+    }
+}
+.achievements {
+    margin-top:8px;
+    font-size: 18px;
+    span {
+        margin: 0 4px;
+        float: right;
+
+        .disabled {
+            filter: grayscale(1);
+        }
     }
 }
 </style>

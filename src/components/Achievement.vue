@@ -32,7 +32,7 @@ export default {
             }
             catch (e) {
                 console.error('Cant find achievement icon. Using default');
-                return require('../assets/achievement.png')
+                return require('../assets/achievements/default.png')
             }
         }
     },
