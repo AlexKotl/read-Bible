@@ -97,7 +97,7 @@ while ($row_ach = $db->fetch($res_ach)) {
         }
     }
 
-    $chapters_read = $db->get_row("SELECT * FROM users_chapters WHERE user_id='{$row_user['id']}' AND is_read=1");
+    $chapters_read = $db->get_row("SELECT COUNT(*) FROM users_chapters WHERE user_id='{$row_user['id']}' AND is_read=1");
 
     // 100 chapters read
     if ($row_ach['name'] === '100_chapters') {

@@ -56,6 +56,7 @@ export default {
         position: fixed;
         left: 50%;
         top: 50%;
+        z-index: 1000;
     }
 
     @keyframes rotation {

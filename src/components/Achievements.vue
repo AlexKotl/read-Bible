@@ -1,7 +1,11 @@
 <template>
     <div>
+        <Achievement v-if="show_achievement" :title="current_title" :icon="current_icon" @click.native="show_achievement = false"></Achievement>
         <h2>{{ $t("Achievements") }}</h2>
-        <div v-for="achievement in achievements" :key="'id'+achievement.id" class="achievement" :class="{disabled: achievement.is_done == 0}">
+        <h2>{{ done_number }} / {{ total_number }}</h2>
+
+
+        <div v-for="achievement in achievements" :key="'id'+achievement.id" class="item" :class="{disabled: achievement.is_done == 0}" @click="showAchievement(achievement.title)">
             <img :src="achievement.image" alt="">
             <div class="title">
                 {{ achievement.title }}
@@ -21,7 +25,18 @@ export default {
     },
     data() {
         return {
-            achievements: []
+            achievements: [],
+            total_number: 0,
+            done_number: 0,
+            show_achievement: false,
+            current_title: '',
+            current_icon: '',
+        }
+    },
+    methods: {
+        showAchievement: function(title) {
+            this.current_title = title;
+            this.show_achievement = true;
         }
     },
     async created() {
@@ -45,7 +60,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.achievement {
+.item {
     width: 33%;
     float:left;
     text-align:center;
