@@ -8,12 +8,12 @@ Second API: `https://getbible.net/api`
 XML Sources: `https://www.ph4.org/b4_mobi.php?q=zefania`
 
 ## Achievements
-- Первая глава
-- Первая книга
+- Первая глава - DONE
+- Первая книга - DONE
 - Пятикнижье Моисея
 - Евангелие
-- 7 дней чтения
-- Месяц чтения
+- 7 дней чтения - DONE
+- Месяц чтения - DONE
 - 100 глав
 - 500 глав
 - 10 глав за день

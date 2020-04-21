@@ -2,6 +2,15 @@
 
 // record achievement
 function achieve($data) {
+    global $row_user, $db;
+    if ($db->get_row("SELECT * FROM achievements_users WHERE achievement_id='{$data['id']}' AND user_id='{$row_user['id']}'")) {
+        return false;
+    }
+    $db->insert('achievements_users', [
+        'achievement_id' => $data['id'],
+        'user_id' => $row_user['id'],
+    ]);
+
     return [
         'id' => $data['id'],
         'name' => $data['name'],
