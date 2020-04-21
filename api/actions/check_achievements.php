@@ -6,10 +6,10 @@ function achieve($data) {
     if ($db->get_row("SELECT * FROM achievements_users WHERE achievement_id='{$data['id']}' AND user_id='{$row_user['id']}'")) {
         return false;
     }
-    $db->insert('achievements_users', [
-        'achievement_id' => $data['id'],
-        'user_id' => $row_user['id'],
-    ]);
+    // $db->insert('achievements_users', [
+    //     'achievement_id' => $data['id'],
+    //     'user_id' => $row_user['id'],
+    // ]);
 
     return [
         'id' => $data['id'],
@@ -30,7 +30,10 @@ while ($row_ach = $db->fetch($res_ach)) {
     if ($row_ach['name'] === 'first_chapter') {
         $count = $db->get_row("SELECT COUNT(*) FROM users_chapters WHERE user_id='{$row_user['id']}' AND is_read='1'");
         if ($count > 0) {
-            $data[] = achieve($row_ach);
+            $achieve = achieve($row_ach);
+            if ($achieve) {
+                $data[] = achieve($row_ach);
+            }
         }
     }
 
@@ -44,7 +47,10 @@ while ($row_ach = $db->fetch($res_ach)) {
         ) subtable WHERE user_count = chapters_count");
 
         if ($whole_chapters_count > 0) {
-            $data[] = achieve($row_ach);
+            $achieve = achieve($row_ach);
+            if ($achieve) {
+                $data[] = achieve($row_ach);
+            }
         }
     }
 
@@ -76,14 +82,42 @@ while ($row_ach = $db->fetch($res_ach)) {
     // 7 days of reading
     if ($row_ach['name'] === '7_days') {
         if ($longest >= 7) {
-            $data[] = achieve($row_ach);
+            $achieve = achieve($row_ach);
+            if ($achieve) {
+                $data[] = achieve($row_ach);
+            }
         }
     }
 
     // 30 days of reading
     if ($row_ach['name'] === '30_days') {
         if ($longest >= 30) {
-            $data[] = achieve($row_ach);
+            $achieve = achieve($row_ach);
+            if ($achieve) {
+                $data[] = achieve($row_ach);
+            }
+        }
+    }
+
+    $chapters_read = $db->get_row("SELECT * FROM users_chapters WHERE user_id='{$row_user['id']}' AND is_read=1");
+
+    // 100 chapters read
+    if ($row_ach['name'] === '100_chapters') {
+        if ($chapters_read >= 100) {
+            $achieve = achieve($row_ach);
+            if ($achieve) {
+                $data[] = achieve($row_ach);
+            }
+        }
+    }
+
+    // 500 chapters read
+    if ($row_ach['name'] === '500_chapters') {
+        if ($chapters_read >= 500) {
+            $achieve = achieve($row_ach);
+            if ($achieve) {
+                $data[] = achieve($row_ach);
+            }
         }
     }
 }
