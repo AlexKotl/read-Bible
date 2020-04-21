@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Achievement></Achievement>
+        <Achievement v-if="showAchievement" title="Test title" icon="achievement"></Achievement>
         <h2>{{ chapter.book_name }}</h2>
         <h3>{{ $t('Chapter') }} {{ chapter.number }}</h3>
         <div style="float:right">
@@ -61,6 +61,7 @@ export default {
             verses: [],
             chapter: {},
             currentLang: this.getLang,
+            showAchievement: false,
         }
     },
     computed: {
@@ -104,6 +105,8 @@ export default {
                 chapter_id: this.id,
                 is_read: this.isRead ? 0 : 1
             }).toString());
+
+            this.showAchievement = true;
 
             this.fetchChapters();
         },

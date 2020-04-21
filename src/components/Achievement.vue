@@ -4,10 +4,10 @@
             <img :src="require('../assets/badge.png')" class="badge">
         </div>
 
-        <img :src="require('../assets/achievement.png')" class="icon">
+        <img :src="require('../assets/' + icon + '.png')" class="icon">
         <div class="title_container">
             <div class="title">
-                Прочитать первую главу
+                {{ title }}
             </div>
         </div>
     </div>
@@ -19,6 +19,7 @@ import confetti from 'canvas-confetti';
 
 
 export default {
+    props: ["title", "icon"],
     methods: {
         randomInRange: function(min, max) {
             return Math.random() * (max - min) + min;
@@ -32,6 +33,9 @@ export default {
         setTimeout(() => {
             confetti({ angle: 135, particleCount: 50 });
         }, 1600);
+        setTimeout(() => {
+            confetti();
+        }, 5000);
     }
 }
 </script>
