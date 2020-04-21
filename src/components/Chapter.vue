@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Achievement></Achievement>
         <h2>{{ chapter.book_name }}</h2>
         <h3>{{ $t('Chapter') }} {{ chapter.number }}</h3>
         <div style="float:right">

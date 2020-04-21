@@ -18,6 +18,8 @@ XML Sources: `https://www.ph4.org/b4_mobi.php?q=zefania`
 - 500 глав
 - 10 глав за день
 - Ветхий завет
+- Рождество
+- Ковчег/потоп
 - 100%
 
 ## Build Setup
