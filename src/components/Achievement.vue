@@ -4,7 +4,7 @@
             <img :src="require('../assets/badge.png')" class="badge">
         </div>
 
-        <img :src="require('../assets/' + icon + '.png')" class="icon">
+        <img :src="icon" class="icon">
         <div class="title_container">
             <div class="title">
                 {{ title }}
@@ -25,6 +25,17 @@ export default {
             return Math.random() * (max - min) + min;
         }
     },
+    computed: {
+        icon: function() {
+            try {
+                return require('../assets/' + icon + '.png')
+            }
+            catch (e) {
+                console.error('Cant find achievement icon. Using default');
+                return require('../assets/achievement.png')
+            }
+        }
+    },
     created() {
         confetti({ particleCount: 100 });
         setTimeout(() => {
@@ -34,7 +45,7 @@ export default {
             confetti({ angle: 135, particleCount: 50 });
         }, 1600);
         setTimeout(() => {
-            confetti();
+            confetti({ gravity: 0.5, spread: 90 });
         }, 5000);
     }
 }

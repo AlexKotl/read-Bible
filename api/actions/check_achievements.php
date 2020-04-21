@@ -22,8 +22,6 @@ if (!$row_user) {
     die("User auth failed");
 }
 
-$data = [];
-
 $res_ach = $db->query("SELECT * FROM achievements");
 while ($row_ach = $db->fetch($res_ach)) {
     // Read one chapter
@@ -32,7 +30,7 @@ while ($row_ach = $db->fetch($res_ach)) {
         if ($count > 0) {
             $achieve = achieve($row_ach);
             if ($achieve) {
-                $data[] = achieve($row_ach);
+                $data['achievements'][] = achieve($row_ach);
             }
         }
     }
@@ -49,7 +47,7 @@ while ($row_ach = $db->fetch($res_ach)) {
         if ($whole_chapters_count > 0) {
             $achieve = achieve($row_ach);
             if ($achieve) {
-                $data[] = achieve($row_ach);
+                $data['achievements'][] = achieve($row_ach);
             }
         }
     }
@@ -84,7 +82,7 @@ while ($row_ach = $db->fetch($res_ach)) {
         if ($longest >= 7) {
             $achieve = achieve($row_ach);
             if ($achieve) {
-                $data[] = achieve($row_ach);
+                $data['achievements'][] = achieve($row_ach);
             }
         }
     }
@@ -94,7 +92,7 @@ while ($row_ach = $db->fetch($res_ach)) {
         if ($longest >= 30) {
             $achieve = achieve($row_ach);
             if ($achieve) {
-                $data[] = achieve($row_ach);
+                $data['achievements'][] = achieve($row_ach);
             }
         }
     }
@@ -106,7 +104,7 @@ while ($row_ach = $db->fetch($res_ach)) {
         if ($chapters_read >= 100) {
             $achieve = achieve($row_ach);
             if ($achieve) {
-                $data[] = achieve($row_ach);
+                $data['achievements'][] = achieve($row_ach);
             }
         }
     }
@@ -116,7 +114,7 @@ while ($row_ach = $db->fetch($res_ach)) {
         if ($chapters_read >= 500) {
             $achieve = achieve($row_ach);
             if ($achieve) {
-                $data[] = achieve($row_ach);
+                $data['achievements'][] = achieve($row_ach);
             }
         }
     }
