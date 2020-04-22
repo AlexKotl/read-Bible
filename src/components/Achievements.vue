@@ -74,10 +74,12 @@ export default {
     .title {
         margin-top: 10px;
         background-color: #525252;
-        padding: 5px 10px;
+        padding: 8px 10px;
         border-radius: 14px;
         color: white;
         font-weight: bold;
+        font-size: 16px;
+        line-height: 19px;
     }
 
     &.disabled {

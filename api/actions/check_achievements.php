@@ -14,7 +14,7 @@ function achieve($data) {
     return [
         'id' => $data['id'],
         'name' => $data['name'],
-        'title' => $data['title_ru'],
+        'title' => $data['title'],
     ];
 }
 
@@ -22,7 +22,7 @@ if (!$row_user) {
     die("User auth failed");
 }
 
-$res_ach = $db->query("SELECT * FROM achievements");
+$res_ach = $db->query("SELECT *, title_{$lang} as title FROM achievements");
 while ($row_ach = $db->fetch($res_ach)) {
     // Read one chapter
     if ($row_ach['name'] === 'first_chapter') {
@@ -30,7 +30,7 @@ while ($row_ach = $db->fetch($res_ach)) {
         if ($count > 0) {
             $achieve = achieve($row_ach);
             if ($achieve) {
-                $data['achievements'][] = achieve($row_ach);
+                $data['achievements'][] = $achieve;
             }
         }
     }
@@ -47,7 +47,7 @@ while ($row_ach = $db->fetch($res_ach)) {
         if ($whole_chapters_count > 0) {
             $achieve = achieve($row_ach);
             if ($achieve) {
-                $data['achievements'][] = achieve($row_ach);
+                $data['achievements'][] = $achieve;
             }
         }
     }
@@ -82,7 +82,7 @@ while ($row_ach = $db->fetch($res_ach)) {
         if ($longest >= 7) {
             $achieve = achieve($row_ach);
             if ($achieve) {
-                $data['achievements'][] = achieve($row_ach);
+                $data['achievements'][] = $achieve;
             }
         }
     }
@@ -92,7 +92,7 @@ while ($row_ach = $db->fetch($res_ach)) {
         if ($longest >= 30) {
             $achieve = achieve($row_ach);
             if ($achieve) {
-                $data['achievements'][] = achieve($row_ach);
+                $data['achievements'][] = $achieve;
             }
         }
     }
@@ -104,7 +104,7 @@ while ($row_ach = $db->fetch($res_ach)) {
         if ($chapters_read >= 100) {
             $achieve = achieve($row_ach);
             if ($achieve) {
-                $data['achievements'][] = achieve($row_ach);
+                $data['achievements'][] = $achieve;
             }
         }
     }
@@ -114,7 +114,7 @@ while ($row_ach = $db->fetch($res_ach)) {
         if ($chapters_read >= 500) {
             $achieve = achieve($row_ach);
             if ($achieve) {
-                $data['achievements'][] = achieve($row_ach);
+                $data['achievements'][] = $achieve;
             }
         }
     }

@@ -144,7 +144,6 @@ if ($_GET['action'] === 'mark_read') {
         $db->query("UPDATE users_chapters SET is_read='{$is_read}' WHERE user_id='{$user_id}' AND chapter_id='{$chapter_id}'");
 
         $data['code'] = 200;
-        $data['messsage'] = "UPDATE users_chapters SET is_read='{$is_read}' WHERE user_id='{$user_id}' AND chapter_id='{$chapter_id}'";
 
         include "actions/check_achievements.php";
     }

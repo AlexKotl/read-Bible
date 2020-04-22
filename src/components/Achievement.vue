@@ -40,12 +40,12 @@ export default {
         confetti({ particleCount: 100 });
         setTimeout(() => {
             confetti({ angle: 45, particleCount: 50 });
-        }, 1000);
+        }, 900);
         setTimeout(() => {
             confetti({ angle: 135, particleCount: 50 });
-        }, 1600);
+        }, 1500);
         setTimeout(() => {
-            confetti({ gravity: 0.5, spread: 90 });
+            confetti({ gravity: 0.5, spread: 90, particleCount: 120 });
         }, 5000);
     }
 }
@@ -105,7 +105,7 @@ export default {
         margin-top: -64px;
         position: fixed;
         z-index: 200;
-        animation-duration: 3s;
+        animation-duration: 2.2s;
         animation-name: icon_appear;
 
     }
