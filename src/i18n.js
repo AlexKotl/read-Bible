@@ -41,6 +41,7 @@ const messages = {
         UsersReadedChapters: "Users read chapters",
         ProgressForMonth: "Progress for the past month",
         Achievements: "Achievements",
+        outOf: "out of",
     },
     'ua': {
         Bible: "Біблія",
@@ -79,6 +80,7 @@ const messages = {
         UsersReadedChapters: "Наші користувачі прочитали глав",
         ProgressForMonth: "Прогрес читання за місяць",
         Achievements: "Досягнення",
+        outOf: "з",
     },
     'ru': {
         Bible: "Библия",
@@ -117,6 +119,7 @@ const messages = {
         UsersReadedChapters: "Наши пользователи прочитали глав",
         ProgressForMonth: "Прогресс чтения за месяц",
         Achievements: "Достижения",
+        outOf: "из",
     }
 };
 

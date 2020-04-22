@@ -9,6 +9,8 @@ $data = [
     'total_chars' => (int)$db->get_row("SELECT SUM(chars) FROM chapters"),
     'total_users' => (int)$db->get_row("SELECT count(*) FROM users"),
     'total_users_chapters' => (int)$db->get_row("SELECT count(*) FROM users_chapters"),
+    'achievements_count' => (int)$db->get_row("SELECT COUNT(*) FROM achievements_users WHERE user_id='{$row_user['id']}'"),
+    'total_achievements' => (int)$db->get_row("SELECT COUNT(*) FROM achievements"),
 ];
 
 // get data per past month

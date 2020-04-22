@@ -13,9 +13,9 @@
             <div class='number'>
                 {{ this.stats.read_chapters }}
             </div>
-            {{ $t("UsersReadedChapters") }}:
+            {{ $t("Achievements") }}:
             <div class='number'>
-                {{ this.stats.total_users_chapters }} ({{ this.stats.total_users }})
+                {{ this.stats.achievements_count }} <small>{{ $t("outOf") }}</small> {{ this.stats.total_achievements }}
             </div>
         </div>
         <br style="clear:both">
@@ -78,7 +78,8 @@ export default {
     computed: {
         ...mapGetters(["getUser"]),
         totalPercents: function() {
-            return Math.round(this.stats.read_chars / (this.stats.total_chars) * 1000)/10;
+            const perc = Math.round(this.stats.read_chars / (this.stats.total_chars) * 1000)/10;
+            return isNaN(perc) ? '...' : perc;
         }
     },
     methods: {
@@ -138,6 +139,11 @@ export default {
     .number {
         font-size: 26px;
         margin-bottom: 10px;
+    }
+
+    small {
+        color: gray;
+        font-size: 14px;
     }
 }
 .achievements {
