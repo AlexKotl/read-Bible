@@ -36,11 +36,11 @@ const router = new Router({
             name: 'registration',
             component: RegistrationForm,
         },
-        {
-            path: '/achievements',
-            name: 'achievements',
-            component: Achievements,
-        }
+        // {
+        //     path: '/achievements',
+        //     name: 'achievements',
+        //     component: Achievements,
+        // }
     ]
 })
 
