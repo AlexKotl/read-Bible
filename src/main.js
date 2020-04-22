@@ -11,27 +11,37 @@ import RegistrationForm from './components/RegistrationForm.vue';
 Vue.use(Router);
 
 const router = new Router({
-    routes: [{
-        path: '/',
-        name: 'chapters',
-        component: Chapters,
+    scrollBehavior (to, from, savedPosition) {
+        return { x: 0, y: 0 }
     },
-    {
-        path: '/chapters/:id',
-        name: 'chapter',
-        component: Chapter,
-        props: true,
-    },
-    {
-        path: '/login',
-        name: 'login',
-        component: LoginForm,
-    },
-    {
-        path: '/registration',
-        name: 'registration',
-        component: RegistrationForm,
-    }]
+    routes: [
+        {
+            path: '/',
+            name: 'chapters',
+            component: Chapters,
+        },
+        {
+            path: '/chapters/:id',
+            name: 'chapter',
+            component: Chapter,
+            props: true,
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: LoginForm,
+        },
+        {
+            path: '/registration',
+            name: 'registration',
+            component: RegistrationForm,
+        },
+        {
+            path: '/achievements',
+            name: 'achievements',
+            component: Achievements,
+        }
+    ]
 })
 
 new Vue({

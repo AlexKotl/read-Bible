@@ -125,7 +125,6 @@ export default {
     watch: {
         '$route'() {
             this.getChapter(this.id);
-            window.scrollTo(0,0);
         }
     }
 }
