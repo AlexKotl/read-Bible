@@ -2,7 +2,7 @@
     <div>
         <Achievement v-if="show_achievement" :title="current_title" :icon="current_icon" @click.native="show_achievement = false"></Achievement>
         <h2>{{ $t("Achievements") }}</h2>
-        <h2>{{ done_number }} / {{ total_number }}</h2>
+        <h2>{{ doneNumber }} / {{ totalNumber }}</h2>
 
 
         <div v-for="achievement in achievements" :key="'id'+achievement.id" class="item" :class="{disabled: achievement.is_done == 0}" @click="showAchievement(achievement.title)">
@@ -22,6 +22,12 @@ export default {
     components: { Achievement },
     computed: {
         ...mapGetters(["getUser"]),
+        totalNumber: function() {
+            return this.achievements.length;
+        },
+        doneNumber: function() {
+            return this.achievements.filter(el => el.is_done == 1).length;
+        },
     },
     data() {
         return {
