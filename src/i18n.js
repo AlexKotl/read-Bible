@@ -42,6 +42,7 @@ const messages = {
         ProgressForMonth: "Progress for the past month",
         Achievements: "Achievements",
         outOf: "out of",
+        greetings_guest: "To get access to statistics and achievements - login or register."
     },
     'ua': {
         Bible: "Біблія",
@@ -81,6 +82,7 @@ const messages = {
         ProgressForMonth: "Прогрес читання за місяць",
         Achievements: "Досягнення",
         outOf: "з",
+        greetings_guest: "Щоб відстежувати свій прогрес і отримати доступ до статистики та досягнень - увійти або зареєструйтесь.",
     },
     'ru': {
         Bible: "Библия",
@@ -120,6 +122,7 @@ const messages = {
         ProgressForMonth: "Прогресс чтения за месяц",
         Achievements: "Достижения",
         outOf: "из",
+        greetings_guest: "Чтобы отслеживать свой прогресс и получить доступ к статистике и достижениям - войдите или зарегистрируйтесь.",
     }
 };
 
