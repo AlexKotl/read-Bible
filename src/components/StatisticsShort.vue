@@ -11,17 +11,27 @@
             </div>
             {{ $t("ReadedChapters") }}:
             <div class='number'>
-                {{ this.stats.read_chapters }}/{{ this.stats.total_chapters }}
+                {{ this.stats.read_chapters }}
             </div>
-            {{ $t("UsersReadedChapters") }}:
+            {{ $t("Achievements") }}:
             <div class='number'>
-                {{ this.stats.total_users_chapters }} ({{ this.stats.total_users }})
+                {{ this.stats.achievements_count }} <small>{{ $t("outOf") }}</small> {{ this.stats.total_achievements }}
             </div>
         </div>
         <br style="clear:both">
         <div>
             <BarChart :chart-data="monthChartData" :options="monthChartOptions" :styles="{height: '160px'}"></BarChart>
         </div>
+        <div class="achievements">
+            <span v-for="achievement in stats.achievements" :key="'ach_'+achievement.id">
+                <img :src="require('../assets/achievements/default.png')" :title="achievement.title" :class="{disabled: achievement.is_done == 0}" width="32" height="32" alt="" >
+            </span>
+
+            <router-link :to="{ name: 'achievements' }" class="button">
+                {{ $t("Achievements") }}
+            </router-link>
+        </div>
+        <br style="clear:both">
     </div>
 </template>
 
@@ -68,7 +78,8 @@ export default {
     computed: {
         ...mapGetters(["getUser"]),
         totalPercents: function() {
-            return Math.round(this.stats.read_chars / (this.stats.total_chars) * 1000)/10;
+            const perc = Math.round(this.stats.read_chars / (this.stats.total_chars) * 1000)/10;
+            return isNaN(perc) ? '...' : perc;
         }
     },
     methods: {
@@ -102,7 +113,6 @@ export default {
             labels.push(date);
             this.monthChartTooltip[date] = this.stats.by_month[date] !== undefined ? this.stats.by_month[date].chapters : 0;
         }
-        console.log(this.monthChartTooltip);
         this.monthChartData = {
             labels: labels,
             datasets: [{
@@ -129,6 +139,27 @@ export default {
     .number {
         font-size: 26px;
         margin-bottom: 10px;
+    }
+
+    small {
+        color: gray;
+        font-size: 14px;
+    }
+}
+.achievements {
+    margin-top:18px;
+    font-size: 18px;
+    display: block;
+    .button {
+        float:right;
+    }
+    span {
+        margin: 0 4px;
+        float: left;
+
+        .disabled {
+            filter: grayscale(1);
+        }
     }
 }
 </style>

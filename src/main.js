@@ -7,6 +7,7 @@ import Chapters from './components/Chapters.vue';
 import Chapter from './components/Chapter.vue';
 import LoginForm from './components/LoginForm.vue';
 import RegistrationForm from './components/RegistrationForm.vue';
+import Achievements from './components/Achievements.vue';
 
 Vue.use(Router);
 
@@ -36,11 +37,11 @@ const router = new Router({
             name: 'registration',
             component: RegistrationForm,
         },
-        // {
-        //     path: '/achievements',
-        //     name: 'achievements',
-        //     component: Achievements,
-        // }
+        {
+            path: '/achievements',
+            name: 'achievements',
+            component: Achievements,
+        }
     ]
 })
 

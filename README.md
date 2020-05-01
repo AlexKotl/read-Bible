@@ -7,6 +7,21 @@ API used for Bible: `https://bibleonline.docs.apiary.io/#reference/0`
 Second API: `https://getbible.net/api`
 XML Sources: `https://www.ph4.org/b4_mobi.php?q=zefania`
 
+## Achievements
+- Первая глава
+- Первая книга
+- Пятикнижье Моисея
+- Евангелие
+- 7 дней чтения
+- Месяц чтения
+- 100 глав
+- 500 глав
+- *10 глав за день*
+- *Ветхий завет*
+- *Рождество*
+- *Ковчег/потоп*
+- 100%
+
 ## Build Setup
 
 ``` bash

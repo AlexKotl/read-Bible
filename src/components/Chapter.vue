@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Achievement v-if="showAchievement" @click.native="hideAchievement" :title="achievement.title" :icon="achievement.name"></Achievement>
         <h2>{{ chapter.book_name }}</h2>
         <h3>{{ $t('Chapter') }} {{ chapter.number }}</h3>
         <div style="float:right">
@@ -51,13 +52,17 @@
 
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex';
+import Achievement from './Achievement';
 export default {
     props: ['id'],
+    components: { Achievement },
     data() {
         return {
             verses: [],
             chapter: {},
             currentLang: this.getLang,
+            showAchievement: false,
+            achievement: {}
         }
     },
     computed: {
@@ -101,6 +106,13 @@ export default {
                 chapter_id: this.id,
                 is_read: this.isRead ? 0 : 1
             }).toString());
+            const data = await res.json();
+
+            if (data.achievements) {
+                this.achievement = data.achievements[0];
+                this.showAchievement = true;
+            }
+
 
             this.fetchChapters();
         },
@@ -109,6 +121,9 @@ export default {
         },
         zoomIn() {
             return this.updateFontSize(this.getFontSize + 1);
+        },
+        hideAchievement() {
+            this.showAchievement = false;
         }
     },
     created() {
