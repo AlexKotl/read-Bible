@@ -47,4 +47,7 @@ export default {
     border-radius: 5px;
     text-align: center;
 }
+#app.dark .greetings-window {
+    color: black;
+}
 </style>
