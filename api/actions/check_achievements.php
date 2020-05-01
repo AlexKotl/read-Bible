@@ -22,6 +22,12 @@ if (!$row_user) {
     die("User auth failed");
 }
 
+// helper SQL to pick read books
+$sql_read_books = "SELECT books.*, count(DISTINCT chapters.id) AS chapters_count, count(DISTINCT users_chapters.id) AS user_count  FROM books
+LEFT JOIN chapters ON chapters.book_id=books.id
+LEFT JOIN users_chapters ON chapters.id=users_chapters.chapter_id AND users_chapters.user_id='{$row_user['id']}' AND users_chapters.is_read=1
+GROUP BY books.id";
+
 $res_ach = $db->query("SELECT *, title_{$lang} as title FROM achievements");
 while ($row_ach = $db->fetch($res_ach)) {
     // Read one chapter
@@ -37,12 +43,7 @@ while ($row_ach = $db->fetch($res_ach)) {
 
     // Read one book
     if ($row_ach['name'] === 'first_book') {
-        $whole_chapters_count = $db->get_row("SELECT COUNT(*) FROM (
-            SELECT books.*, count(DISTINCT chapters.id) AS chapters_count, count(DISTINCT users_chapters.id) AS user_count  FROM books
-            LEFT JOIN chapters ON chapters.book_id=books.id
-            LEFT JOIN users_chapters ON chapters.id=users_chapters.chapter_id AND users_chapters.user_id='{$row_user['id']}' AND users_chapters.is_read=1
-            GROUP BY books.id
-        ) subtable WHERE user_count = chapters_count");
+        $whole_chapters_count = $db->get_row("SELECT COUNT(*) FROM ({$sql_read_books}) subtable WHERE user_count = chapters_count");
 
         if ($whole_chapters_count > 0) {
             $achieve = achieve($row_ach);
@@ -118,5 +119,41 @@ while ($row_ach = $db->fetch($res_ach)) {
             }
         }
     }
+
+    // 5 Moses Books
+    if ($row_ach['name'] === 'moses_books') {
+        $moses_read = $db->get_row("SELECT COUNT(*) FROM ({$sql_read_books}) subtable
+            WHERE user_count = chapters_count AND name_en IN ('Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy') ");
+        if ($moses_read == 5) {
+            $achieve = achieve($row_ach);
+            if ($achieve) {
+                $data['achievements'][] = $achieve;
+            }
+        }
+    }
+
+    // Gospel Apostles
+    if ($row_ach['name'] === 'gospel_apostles') {
+        $gospel_read = $db->get_row("SELECT COUNT(*) FROM ({$sql_read_books}) subtable
+            WHERE user_count = chapters_count AND name_en IN ('Matthew', 'Mark', 'Luke', 'John') ");
+        if ($gospel_read == 4) {
+            $achieve = achieve($row_ach);
+            if ($achieve) {
+                $data['achievements'][] = $achieve;
+            }
+        }
+    }
+
+    // 100% read
+    if ($row_ach['name'] === '100_percents') {
+        $total_chapters = $db->get_row("SELECT COUNT(*) FROM chapters");
+        if ($chapters_read == $total_chapters) {
+            $achieve = achieve($row_ach);
+            if ($achieve) {
+                $data['achievements'][] = $achieve;
+            }
+        }
+    }
+
 }
 
