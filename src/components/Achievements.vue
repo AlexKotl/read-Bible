@@ -5,7 +5,11 @@
         <h2>{{ doneNumber }} / {{ totalNumber }}</h2>
 
 
-        <div v-for="achievement in achievements" :key="'id'+achievement.id" class="item" :class="{disabled: achievement.is_done == 0}" @click="showAchievement(achievement.title)">
+        <div v-for="achievement in achievements"
+            :key="'id'+achievement.id"
+            class="item"
+            :class="{disabled: achievement.is_done == 0}" 
+            @click="achievement.is_done == 1 ? showAchievement(achievement.title) : ''">
             <img :src="achievement.image" alt="">
             <div class="title">
                 {{ achievement.title }}

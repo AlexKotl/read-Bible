@@ -7,6 +7,7 @@ const messages = {
     'en': {
         Bible: "Holy Bible",
         Registration: "Registration",
+        Register: "Register",
         Login: "Login",
         Logout: "Logout",
         Hello: "Hello",
@@ -47,6 +48,7 @@ const messages = {
     'ua': {
         Bible: "Біблія",
         Registration: "Реєстрація",
+        Registrer: "Реєстрація",
         Login: "Логін",
         Logout: "Вийти",
         Hello: "Привіт",
@@ -87,6 +89,7 @@ const messages = {
     'ru': {
         Bible: "Библия",
         Registration: "Регистрация",
+        Registrer: "Регистрация",
         Login: "Логин",
         Logout: "Выйти",
         Hello: "Привет",

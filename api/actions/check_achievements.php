@@ -24,9 +24,9 @@ if (!$row_user) {
 
 // helper SQL to pick read books
 $sql_read_books = "SELECT books.*, count(DISTINCT chapters.id) AS chapters_count, count(DISTINCT users_chapters.id) AS user_count  FROM books
-LEFT JOIN chapters ON chapters.book_id=books.id
-LEFT JOIN users_chapters ON chapters.id=users_chapters.chapter_id AND users_chapters.user_id='{$row_user['id']}' AND users_chapters.is_read=1
-GROUP BY books.id";
+    LEFT JOIN chapters ON chapters.book_id=books.id
+    LEFT JOIN users_chapters ON chapters.id=users_chapters.chapter_id AND users_chapters.user_id='{$row_user['id']}' AND users_chapters.is_read=1
+    GROUP BY books.id";
 
 $res_ach = $db->query("SELECT *, title_{$lang} as title FROM achievements");
 while ($row_ach = $db->fetch($res_ach)) {
