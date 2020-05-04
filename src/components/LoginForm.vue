@@ -2,6 +2,11 @@
     <div>
         <h1>{{ $t("Enter") }}</h1>
         <h3>{{ message }}</h3>
+        <a class="button google-login" @click="googleLogin">
+            <img :src="require('./../assets/google.png')" width="28" height="28" />
+            {{ $t("Login with Google") }}
+        </a>
+        <div class="delimiter"> - {{ $t("or") }} - </div>
         <form @submit.prevent="submit">
             <input type="text" v-model="email" value="" :placeholder="$t('Login')" />
             <input type="password" v-model="password" value="" :placeholder="$t('Password')" />
@@ -46,6 +51,14 @@ export default {
                 await this.fetchChapters();
                 this.$router.push({ name: 'chapters'});
             }
+        },
+
+        async googleLogin() {
+            const googleUser = await this.$gAuth.signIn();
+            if (this.$gAuth.isAuthorized) {
+                console.log(googleUser.getBasicProfile());
+            }
+
         }
     }
 }
@@ -55,5 +68,20 @@ export default {
 
 h3 {
     color: red;
+}
+
+.google-login {
+    display: block;
+    margin: 20px auto;
+    padding: 10px;
+
+    img {
+        vertical-align: middle;
+        margin-right: 10px;
+    }
+}
+.delimiter {
+    text-align:center;
+    margin-bottom: 20px;
 }
 </style>
