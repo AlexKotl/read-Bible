@@ -1,6 +1,6 @@
 <?php
 include "../vendor/autoload.php";
-include "db_config.php";
+include "config.php";
 include "classes/class_mysql.php";
 
 $db = new CMysql();
