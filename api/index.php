@@ -1,5 +1,6 @@
 <?php
-include "db_config.php";
+include "../vendor/autoload.php";
+include "config.php";
 include "classes/class_mysql.php";
 
 $db = new CMysql();
@@ -56,34 +57,7 @@ if ($_GET['action'] === 'chapter') {
 }
 
 if ($_GET['action'] === 'auth') {
-    $request_body = file_get_contents('php://input');
-    $request_body = json_decode($request_body, true);
-
-    $email = $db->filter($request_body['email'], 'email');
-    $password = md5($request_body['password']);
-    $row = $db->get_row("SELECT * FROM users WHERE email='{$email}' AND password='{$password}' LIMIT 1");
-
-    if ($row) {
-        // generate new session key for user
-        $session_id = md5($email . $password . time());
-        $db->update('users', $row['id'], ['session' => $session_id]);
-
-        $data = [
-            'session_id' => $session_id,
-            'user_name' => $row['name'],
-            'user_email' => $row['email'],
-        ];
-    }
-    elseif ($db->get_row("SELECT id FROM users WHERE email='{$email}'") != false) {
-        $data = [
-            'error' => "Неверный пароль.",
-        ];
-    }
-    else {
-        $data = [
-            'error' => "Пользователь с email {$email} не найден.",
-        ];
-    }
+    include "actions/auth.php";
 }
 
 if ($_GET['action'] === 'verify_session') {

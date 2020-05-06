@@ -2,6 +2,9 @@
     <div>
         <h2>{{ $t("RegisterUser") }}</h2>
         <h3>{{ message }}</h3>
+
+        <LoginGoogle :title="$t('RegisterWithGoogle')" />
+        <div class="delimiter"> - {{ $t("or") }} - </div>
         <form @submit.prevent="submit">
             <input type="text" v-model="name" :placeholder="$t('Name')">
             <input type="email" v-model="email" :placeholder="$t('Email')" required>
@@ -14,6 +17,8 @@
 
 <script>
 import { mapMutations, mapActions } from "vuex";
+import LoginGoogle from "./LoginGoogle";
+
 export default {
     data() {
         return {
@@ -24,6 +29,7 @@ export default {
             message: '',
         }
     },
+    components: { LoginGoogle },
     methods: {
         ...mapMutations(["setUser"]),
         ...mapActions(["fetchChapters"]),
@@ -66,5 +72,19 @@ export default {
 <style lang="scss" scoped>
 h3 {
     color: red;
+}
+.google-login {
+    display: block;
+    margin: 20px auto;
+    padding: 10px;
+
+    img {
+        vertical-align: middle;
+        margin-right: 10px;
+    }
+}
+.delimiter {
+    text-align:center;
+    margin-bottom: 20px;
 }
 </style>
