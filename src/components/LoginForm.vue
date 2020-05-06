@@ -56,7 +56,14 @@ export default {
         async googleLogin() {
             const googleUser = await this.$gAuth.signIn();
             if (this.$gAuth.isAuthorized) {
-                console.log(googleUser.getBasicProfile());
+                const code = await this.$gAuth.getAuthCode();
+                const res = await fetch(process.env.API_URL + "/?action=auth", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        code: code
+                    })
+                });
+                console.log('auth res',await res.json());
             }
 
         }
