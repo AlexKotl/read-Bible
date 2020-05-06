@@ -30,16 +30,7 @@ export default {
     methods: {
         ...mapMutations(["setUser"]),
         ...mapActions(["fetchChapters"]),
-        async submit() {
-            const res = await fetch(process.env.API_URL + "/?action=auth", {
-                method: "POST",
-                body: JSON.stringify({
-                    email: this.email,
-                    password: this.password
-                })
-            });
-            const user = await res.json();
-
+        async authUser(user) {
             if (user.error !== undefined) {
                 this.message = user.error;
             }
@@ -52,6 +43,17 @@ export default {
                 this.$router.push({ name: 'chapters'});
             }
         },
+        async submit() {
+            const res = await fetch(process.env.API_URL + "/?action=auth", {
+                method: "POST",
+                body: JSON.stringify({
+                    email: this.email,
+                    password: this.password
+                })
+            });
+            const user = await res.json();
+            this.authUser(user);
+        },
 
         async googleLogin() {
             const googleUser = await this.$gAuth.signIn();
@@ -63,7 +65,8 @@ export default {
                         code: code
                     })
                 });
-                console.log('auth res',await res.json());
+                const user = await res.json();
+                this.authUser(user);
             }
 
         }
