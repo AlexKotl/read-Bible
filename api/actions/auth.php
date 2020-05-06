@@ -7,7 +7,7 @@ $request_body = json_decode($request_body, true);
 $email = $db->filter($request_body['email'], 'email');
 $password = md5($request_body['password']);
 
-//$request_body['code'] = '4/zQHPU-qa-UCSQUidM0iYIpTfG9Hgxcxk13FUUamt9LPZiBVFplm0RGsvhGYu9nPgoa2g7hYOlicnyhVD8W0zzJk';
+// Auth by Google
 if ($request_body['code']) {
     $client = new Google_Client();
     $client->setClientId($google_client_id);
@@ -20,16 +20,21 @@ if ($request_body['code']) {
 
     if ($token['access_token']) {
         $client->setAccessToken($token['access_token']);
-        //print_r('token-');
         $service = new Google_Service_Oauth2($client);
-        try {
-            $user = $service->userinfo->get();
-        }
-        catch (Exception $e) {
-            die("Error: ".$e->getMessage());
-        }
+        $user = $service->userinfo->get();
 
         $row = $db->get_row("SELECT * FROM users WHERE email='{$user->email}' LIMIT 1");
+
+        // register if user not exists
+        if (!$row) {
+            $db->insert('users', [
+                'name' => $user->name,
+                'email' => $user->email,
+                'picture' => $user->picture,
+                'flag' => 1,
+            ]);
+            $row = $db->get_row("SELECT * FROM users WHERE email='{$user->email}' LIMIT 1");
+        }
     }
     else {
         $data['error'] = "Не могу получить access_token: " . $token['error'];
