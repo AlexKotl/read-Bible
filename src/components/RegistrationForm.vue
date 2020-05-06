@@ -2,6 +2,12 @@
     <div>
         <h2>{{ $t("RegisterUser") }}</h2>
         <h3>{{ message }}</h3>
+
+        <a class="button google-login" @click="googleLogin">
+            <img :src="require('./../assets/google.png')" width="28" height="28" />
+            {{ $t("Register with Google") }}
+        </a>
+        <div class="delimiter"> - {{ $t("or") }} - </div>
         <form @submit.prevent="submit">
             <input type="text" v-model="name" :placeholder="$t('Name')">
             <input type="email" v-model="email" :placeholder="$t('Email')" required>
@@ -66,5 +72,19 @@ export default {
 <style lang="scss" scoped>
 h3 {
     color: red;
+}
+.google-login {
+    display: block;
+    margin: 20px auto;
+    padding: 10px;
+
+    img {
+        vertical-align: middle;
+        margin-right: 10px;
+    }
+}
+.delimiter {
+    text-align:center;
+    margin-bottom: 20px;
 }
 </style>

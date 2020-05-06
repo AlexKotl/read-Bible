@@ -2,10 +2,7 @@
     <div>
         <h1>{{ $t("Enter") }}</h1>
         <h3>{{ message }}</h3>
-        <a class="button google-login" @click="googleLogin">
-            <img :src="require('./../assets/google.png')" width="28" height="28" />
-            {{ $t("Login with Google") }}
-        </a>
+        <LoginGoogle :title="$t('LoginWithGoogle')" />
         <div class="delimiter"> - {{ $t("or") }} - </div>
         <form @submit.prevent="submit">
             <input type="text" v-model="email" value="" :placeholder="$t('Login')" />
@@ -18,6 +15,7 @@
 
 <script>
 import { mapMutations, mapActions } from "vuex";
+import LoginGoogle from "./LoginGoogle";
 
 export default {
     data() {
@@ -27,6 +25,7 @@ export default {
             password: "",
         }
     },
+    components: { LoginGoogle },
     methods: {
         ...mapMutations(["setUser"]),
         ...mapActions(["fetchChapters"]),
@@ -55,21 +54,6 @@ export default {
             this.authUser(user);
         },
 
-        async googleLogin() {
-            const googleUser = await this.$gAuth.signIn();
-            if (this.$gAuth.isAuthorized) {
-                const code = await this.$gAuth.getAuthCode();
-                const res = await fetch(process.env.API_URL + "/?action=auth", {
-                    method: "POST",
-                    body: JSON.stringify({
-                        code: code
-                    })
-                });
-                const user = await res.json();
-                this.authUser(user);
-            }
-
-        }
     }
 }
 </script>
@@ -80,16 +64,6 @@ h3 {
     color: red;
 }
 
-.google-login {
-    display: block;
-    margin: 20px auto;
-    padding: 10px;
-
-    img {
-        vertical-align: middle;
-        margin-right: 10px;
-    }
-}
 .delimiter {
     text-align:center;
     margin-bottom: 20px;
