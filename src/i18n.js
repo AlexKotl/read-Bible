@@ -43,7 +43,10 @@ const messages = {
         ProgressForMonth: "Progress for the past month",
         Achievements: "Achievements",
         outOf: "out of",
-        greetings_guest: "To get access to statistics and achievements - login or register."
+        greetings_guest: "To get access to statistics and achievements - login or register.",
+        RegisterWithGoogle: "Register with Google",
+        LoginWithGoogle: "Login with Google",
+        or: "or",
     },
     'ua': {
         Bible: "Біблія",
@@ -85,6 +88,9 @@ const messages = {
         Achievements: "Досягнення",
         outOf: "з",
         greetings_guest: "Щоб відстежувати свій прогрес і отримати доступ до статистики та досягнень - увійти або зареєструйтесь.",
+        RegisterWithGoogle: "Зареєструватися за допомогою Google",
+        LoginWithGoogle: "Увійти за допомогою Google",
+        or: "або",
     },
     'ru': {
         Bible: "Библия",
@@ -126,6 +132,9 @@ const messages = {
         Achievements: "Достижения",
         outOf: "из",
         greetings_guest: "Чтобы отслеживать свой прогресс и получить доступ к статистике и достижениям - войдите или зарегистрируйтесь.",
+        RegisterWithGoogle: "Зарегистрироваться при помощи Google",
+        LoginWithGoogle: "Войти с помощью Google",
+        or: "или",
     }
 };
 
