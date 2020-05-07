@@ -31,18 +31,15 @@ export default {
             }
         },
         async googleLogin() {
-            const googleUser = await this.$gAuth.signIn();
-            if (this.$gAuth.isAuthorized) {
-                const code = await this.$gAuth.getAuthCode();
-                const res = await fetch(process.env.API_URL + "/?action=auth", {
-                    method: "POST",
-                    body: JSON.stringify({
-                        code: code
-                    })
-                });
-                const user = await res.json();
-                this.authUser(user);
-            }
+            const code = await this.$gAuth.getAuthCode();
+            const res = await fetch(process.env.API_URL + "/?action=auth", {
+                method: "POST",
+                body: JSON.stringify({
+                    code: code
+                })
+            });
+            const user = await res.json();
+            this.authUser(user);
 
         }
     }
