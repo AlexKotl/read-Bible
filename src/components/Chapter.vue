@@ -1,13 +1,26 @@
 <template>
     <div>
         <Achievement v-if="showAchievement" @click.native="hideAchievement" :title="achievement.title" :icon="achievement.name"></Achievement>
+
         <h2>{{ chapter.book_name }}</h2>
-        <h3>{{ $t('Chapter') }} {{ chapter.number }}</h3>
+
+        <Skeleton v-if="verses.length == 0"/>
+        <h3 v-else>
+            {{ $t('Chapter') }} {{ chapter.number }}
+        </h3>
+
         <div style="float:right">
             <a @click="zoomOut" class="button">	&#8722;</a>
             <a @click="zoomIn" class="button">+</a>
         </div>
         <router-link :to="{ name: 'chapters' }">{{ $t('ToIndex') }}</router-link>
+
+        <div v-if="verses.length == 0">
+            <Skeleton v-for="i in new Array(5)"
+                :count="Math.random() * (4 - 1) + 1"
+                :key="'skeleton'+i"
+                style="margin-top: 10px; display: block;"/>
+        </div>
 
         <div :style="{ 'font-size': getFontSize + 'px' }">
             <p v-for="verse in verses" :key="'num' + verse.number" class="verse">
@@ -53,9 +66,11 @@
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 import Achievement from './Achievement';
+import { Skeleton } from 'vue-loading-skeleton';
+
 export default {
     props: ['id'],
-    components: { Achievement },
+    components: { Achievement, Skeleton },
     data() {
         return {
             verses: [],
@@ -127,6 +142,7 @@ export default {
         }
     },
     created() {
+
         this.getChapter(this.id);
 
         // watch for lang change to update chapter
@@ -139,6 +155,7 @@ export default {
     },
     watch: {
         '$route'() {
+            this.verses = [];
             this.getChapter(this.id);
         }
     }
