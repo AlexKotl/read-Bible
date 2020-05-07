@@ -47,6 +47,7 @@ const messages = {
         RegisterWithGoogle: "Register with Google",
         LoginWithGoogle: "Login with Google",
         or: "or",
+        Loading: "Loading",
     },
     'ua': {
         Bible: "Біблія",
@@ -91,6 +92,7 @@ const messages = {
         RegisterWithGoogle: "Зареєструватися за допомогою Google",
         LoginWithGoogle: "Увійти за допомогою Google",
         or: "або",
+        Loading: "Заванатажую",
     },
     'ru': {
         Bible: "Библия",
@@ -135,6 +137,7 @@ const messages = {
         RegisterWithGoogle: "Зарегистрироваться при помощи Google",
         LoginWithGoogle: "Войти с помощью Google",
         or: "или",
+        Loading: "Загрузка",
     }
 };
 

@@ -2,13 +2,14 @@
     <div>
         <Achievement v-if="show_achievement" :title="current_title" :icon="current_icon" @click.native="show_achievement = false"></Achievement>
         <h2>{{ $t("Achievements") }}</h2>
-        <h2>{{ doneNumber }} / {{ totalNumber }}</h2>
+        <h2 v-if="achievements.length > 0">{{ doneNumber }} / {{ totalNumber }}</h2>
+        <h2 v-else>{{ $t('Loading') }}...</h2>
 
 
         <div v-for="achievement in achievements"
             :key="'id'+achievement.id"
             class="item"
-            :class="{disabled: achievement.is_done == 0}" 
+            :class="{disabled: achievement.is_done == 0}"
             @click="achievement.is_done == 1 ? showAchievement(achievement.title) : ''">
             <img :src="achievement.image" alt="">
             <div class="title">

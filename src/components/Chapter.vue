@@ -36,15 +36,15 @@
                 <br/><small>{{ $t('YouNeed') }} <router-link :to="{ name: 'login' }">{{ $t('authorize') }}</router-link>, {{ $t('toMarkChapterAsRead') }}</small>
             </div>
             <div v-else-if="isRead">
-                <button class="button green" @click="markRead">
+                <LoadingButton class="button green" @click.native="markRead" :loading="isLoading">
                     &#10004; &nbsp; {{ $t('ChapterAlreadyRead') }}
-                </button>
+                </LoadingButton>
                 <br/><small>{{ $t('PressAgainToMarkAsRead') }}</small>
             </div>
             <div v-else>
-                <button class="button green" @click="markRead">
+                <LoadingButton class="button green" @click.native="markRead" :loading="isLoading">
                     {{ $t('MarkAsRead') }}
-                </button>
+                </LoadingButton>
                 <br/><small>{{ $t('AfterReadPressButton') }}</small>
             </div>
 
@@ -66,18 +66,20 @@
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 import Achievement from './Achievement';
+import LoadingButton from './elements/LoadingButton';
 import { Skeleton } from 'vue-loading-skeleton';
 
 export default {
     props: ['id'],
-    components: { Achievement, Skeleton },
+    components: { Achievement, Skeleton, LoadingButton },
     data() {
         return {
             verses: [],
             chapter: {},
             currentLang: this.getLang,
             showAchievement: false,
-            achievement: {}
+            achievement: {},
+            isLoading: false,
         }
     },
     computed: {
@@ -116,6 +118,8 @@ export default {
                 this.$router.push({ name: 'login'});
             }
 
+            this.isLoading = true;
+
             const res = await fetch(process.env.API_URL + "/?action=mark_read&" + new URLSearchParams({
                 session_id: this.getUser.session_id,
                 chapter_id: this.id,
@@ -128,8 +132,8 @@ export default {
                 this.showAchievement = true;
             }
 
-
-            this.fetchChapters();
+            await this.fetchChapters();
+            this.isLoading = false;
         },
         zoomOut() {
             return this.updateFontSize(this.getFontSize - 1);
