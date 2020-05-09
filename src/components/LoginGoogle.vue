@@ -1,17 +1,24 @@
 <template>
-    <a class="button google-login" @click="googleLogin">
+    <LoadingButton class="button google-login" @click.native="googleLogin" :loading="isLoading">
         <img :src="require('./../assets/google.png')" width="28" height="28" />
         {{ title }}
-    </a>
+    </LoadingButton>
 </template>
 
 <script>
 import { mapMutations, mapActions } from 'vuex';
+import LoadingButton from './elements/LoadingButton';
 
 export default {
     props: {
         title: {
             default: "Login with Google"
+        }
+    },
+    components: { LoadingButton },
+    data() {
+        return {
+            isLoading: false,
         }
     },
     methods: {
@@ -31,6 +38,8 @@ export default {
             }
         },
         async googleLogin() {
+            this.isLoading = true;
+
             const code = await this.$gAuth.getAuthCode();
             const res = await fetch(process.env.API_URL + "/?action=auth", {
                 method: "POST",
@@ -39,8 +48,9 @@ export default {
                 })
             });
             const user = await res.json();
-            this.authUser(user);
+            await this.authUser(user);
 
+            this.isLoading = false;
         }
     }
 }
@@ -51,6 +61,7 @@ export default {
     display: block;
     margin: 20px auto;
     padding: 10px;
+    width: 100%;
 
     img {
         vertical-align: middle;
