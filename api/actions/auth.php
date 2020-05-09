@@ -18,12 +18,21 @@ if ($request_body['code']) {
 
     $token = $client->fetchAccessTokenWithAuthCode($request_body['code']);
 
+    // login with Google OAuth2
     if ($token['access_token']) {
         $client->setAccessToken($token['access_token']);
         $service = new Google_Service_Oauth2($client);
         $user = $service->userinfo->get();
 
         $row = $db->get_row("SELECT * FROM users WHERE email='{$user->email}' LIMIT 1");
+
+        // check for updated fields
+        if ($row['name'] != $user->name || $row['picture'] != $user->picture) {
+            $db->update('users', $row['id'], [
+                'name' => $user->name,
+                'picture' => $user->picture,
+            ]);
+        }
 
         // register if user not exists
         if (!$row) {
