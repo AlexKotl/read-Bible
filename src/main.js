@@ -2,7 +2,8 @@ import Vue from 'vue';
 import store from './store';
 import Router from 'vue-router';
 import i18n from './i18n';
-import GAuth from 'vue-google-oauth2'
+import GAuth from 'vue-google-oauth2';
+import VueAnalytics from 'vue-analytics';
 import App from './App.vue';
 import Chapters from './components/Chapters.vue';
 import Chapter from './components/Chapter.vue';
@@ -47,7 +48,12 @@ const router = new Router({
             component: Achievements,
         }
     ]
-})
+});
+
+Vue.use(VueAnalytics, {
+    id: "UA-9891041-15",
+    router
+});
 
 new Vue({
     store,
