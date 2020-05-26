@@ -24,7 +24,9 @@
         </div>
         <div class="achievements">
             <span v-for="achievement in stats.achievements" :key="'ach_'+achievement.id">
-                <img :src="require('../assets/achievements/default.png')" :title="achievement.title" :class="{disabled: achievement.is_done == 0}" width="32" height="32" alt="" >
+                <img :src="require('../assets/achievements/' + achievement.name + (achievement.is_done == 1 ? '_done' : '') + '.png')"
+                    :title="achievement.title"
+                    width="48" height="48" alt="" >
             </span>
 
             <router-link :to="{ name: 'achievements' }" class="button">
@@ -154,12 +156,8 @@ export default {
         float:right;
     }
     span {
-        margin: 0 4px;
+        margin: -2px 1px 0 1px;
         float: left;
-
-        .disabled {
-            filter: grayscale(1);
-        }
     }
 }
 </style>
