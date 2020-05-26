@@ -4,7 +4,7 @@
             <img :src="require('../assets/badge.png')" class="badge">
         </div>
 
-        <img :src="icon" class="icon">
+        <img :src="icon_done_image" class="icon">
         <div class="title_container">
             <div class="title">
                 {{ title }}
@@ -26,13 +26,22 @@ export default {
         }
     },
     computed: {
-        icon: function() {
+        icon_image: function() {
             try {
-                return require('../assets/' + icon + '.png')
+                return require('../assets/achievements/' + this.icon + '.png');
             }
             catch (e) {
                 console.error('Cant find achievement icon. Using default');
-                return require('../assets/achievements/default.png')
+                return require('../assets/achievements/default.png');
+            }
+        },
+        icon_done_image: function() {
+            try {
+                return require('../assets/achievements/' + this.icon + '_done.png');
+            }
+            catch (e) {
+                console.error('Cant find achievement done icon.', this.icon);
+                return require('../assets/achievements/default.png');
             }
         }
     },
@@ -96,7 +105,6 @@ export default {
         animation-timing-function: linear;
         position: fixed;
         z-index: 100;
-        //animation-direction: alternate;
     }
     .icon {
         width: 128px;

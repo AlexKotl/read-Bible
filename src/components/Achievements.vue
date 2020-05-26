@@ -9,7 +9,7 @@
             <div v-for="achievement in achievements"
                 :key="'id'+achievement.id"
                 class="item"
-                @click="achievement.is_done == 1 ? showAchievement(achievement.title) : ''">
+                @click="achievement.is_done == 1 ? showAchievement(achievement.title, achievement.name) : ''">
                 <img :src="achievement.image" alt="">
                 <div class="title">
                     {{ achievement.title }}
@@ -45,8 +45,9 @@ export default {
         }
     },
     methods: {
-        showAchievement: function(title) {
+        showAchievement: function(title, name) {
             this.current_title = title;
+            this.current_icon = name;
             this.show_achievement = true;
         }
     },
