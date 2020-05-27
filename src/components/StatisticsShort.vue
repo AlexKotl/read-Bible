@@ -158,7 +158,7 @@ export default {
         float:right;
     }
     span {
-        margin: -2px 1px 0 1px;
+        margin-top: -2px;
         float: left;
     }
 }

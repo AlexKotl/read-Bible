@@ -120,12 +120,12 @@ h1, h2 {
     }
 
     &.green {
-        background-color: #78c800;
-        box-shadow: 0px 3px 0 #58a700;
+        background-color: #69ba89;
+        box-shadow: 0px 3px 0 #488f64;
         color: white;
 
         &:hover {
-            background-color: #66ba07;
+            background-color: #85c8a0;
         }
     }
 
@@ -136,7 +136,7 @@ h1, h2 {
 }
 
 a {
-    color: #42b983;
+    color: #51946c;
     cursor: pointer;
 }
 
