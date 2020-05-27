@@ -6,9 +6,8 @@
             <div v-for="user in users"
                 :key="'id'+user.id"
                 class="item">
-                <div class="title">
-                    {{ user.name }}
-                </div>
+                <img :src="user.picture" />
+                {{ user.name }}
             </div>
         </div>
     </div>
@@ -35,5 +34,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.users-list {
+    display: flex;
+    flex-flow: wrap;
+}
+.item {
+    width: 33%;
+    text-align:center;
+    padding: 20px 6px;
 
+    img {
+        width:100%;
+        border-radius: 50%;
+    }
+}
 </style>
