@@ -1,8 +1,11 @@
 <template>
     <div>
-        <a class="button" @click="showWindow = true" style="float:right; padding: 0 10px; line-height: 34px; margin:-6px 0 0 0;">
-            <img :src="require('../assets/cog.png')" width="26" height="26" style="vertical-align:middle" />
-        </a>
+        <div class="button-container">
+            <a class="button" @click="showWindow = true">
+                <img :src="require('../assets/cog.png')" width="26" height="26" style="vertical-align:middle" />
+            </a>
+        </div>
+
 
         <div id="settings-window" :class="{show: showWindow}">
             <h2>{{ $t("Settings") }}</h2>
@@ -52,6 +55,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.button-container {
+    position: absolute;
+    right: 44px;
+    a {
+        position: fixed;
+        padding: 0 10px;
+        line-height: 34px;
+        margin: -21px 0 0 0;
+    }
+}
+
 #settings-window {
     position: fixed;
     background-color: white;
@@ -65,6 +79,7 @@ export default {
     transition: all ease-out 0.3s;
     will-change: transform;
     margin-left: -8px;
+    z-index: 500;
 
     &.show {
         transform: translateY(-10px);

@@ -33,10 +33,6 @@ export default {
     name: 'app',
     computed: mapGetters(["getUser", "getTheme"]),
     components: { Settings },
-    data() {
-        return {
-        }
-    },
     methods: {
         ...mapMutations(['setUser']),
         ...mapActions(["fetchChapters"]),
@@ -158,5 +154,11 @@ form {
         padding: 10px 20px;
     }
 }
+
+.menu-actions {
+    position: relative;
+    
+}
+
 
 </style>
