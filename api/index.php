@@ -133,6 +133,9 @@ if ($_GET['action'] === 'get_achievements') {
 if ($_GET['action'] === 'check_achievements') {
     include "actions/check_achievements.php";
 }
+if ($_GET['action'] === 'get_users') {
+    include "actions/get_users.php";
+}
 
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
