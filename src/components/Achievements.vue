@@ -89,14 +89,12 @@ export default {
         width:100%;
     }
 
-
-
     .title {
         margin-top: 10px;
-        background-color: #525252;
+        border: 2px solid #787878;
         padding: 8px 10px;
         border-radius: 14px;
-        color: white;
+        color: #333;
         font-weight: bold;
         font-size: 16px;
         line-height: 19px;

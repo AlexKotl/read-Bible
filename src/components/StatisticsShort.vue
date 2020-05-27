@@ -23,11 +23,13 @@
             <BarChart :chart-data="monthChartData" :options="monthChartOptions" :styles="{height: '160px'}"></BarChart>
         </div>
         <div class="achievements">
-            <span v-for="achievement in stats.achievements" :key="'ach_'+achievement.id">
-                <img :src="require('../assets/achievements/' + achievement.name + (achievement.is_done == 1 ? '_done' : '') + '.png')"
-                    :title="achievement.title"
-                    width="48" height="48" alt="" >
-            </span>
+            <router-link :to="{ name: 'achievements' }">
+                <span v-for="achievement in stats.achievements" :key="'ach_'+achievement.id">
+                    <img :src="require('../assets/achievements/' + achievement.name + (achievement.is_done == 1 ? '_done' : '') + '.png')"
+                        :title="achievement.title"
+                        width="48" height="48" alt="" >
+                </span>
+            </router-link>
 
             <router-link :to="{ name: 'achievements' }" class="button">
                 {{ $t("Achievements") }}
