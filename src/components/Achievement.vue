@@ -1,10 +1,17 @@
 <template>
     <div class='achievement'>
+        <div class="background"></div>
+
         <div class="badge_container">
-            <img :src="require('../assets/badge.png')" class="badge">
+            <!-- <img :src="require('../assets/cloud.png')" class="cloud" alt=""> -->
+            <!-- <img :src="require('../assets/badge.png')" class="badge"> -->
         </div>
 
-        <img :src="icon" class="icon">
+        <div class="icons-container">
+            <img :src="icon_image" class="icon">
+            <img :src="icon_done_image" class="icon-done">
+        </div>
+
         <div class="title_container">
             <div class="title">
                 {{ title }}
@@ -16,8 +23,6 @@
 <script>
 import confetti from 'canvas-confetti';
 
-
-
 export default {
     props: ["title", "icon"],
     methods: {
@@ -26,27 +31,38 @@ export default {
         }
     },
     computed: {
-        icon: function() {
+        icon_image: function() {
             try {
-                return require('../assets/' + icon + '.png')
+                return require('../assets/achievements/' + this.icon + '.png');
             }
             catch (e) {
                 console.error('Cant find achievement icon. Using default');
-                return require('../assets/achievements/default.png')
+                return require('../assets/achievements/default.png');
+            }
+        },
+        icon_done_image: function() {
+            try {
+                return require('../assets/achievements/' + this.icon + '_done.png');
+            }
+            catch (e) {
+                console.error('Cant find achievement done icon.', this.icon);
+                return require('../assets/achievements/default.png');
             }
         }
     },
     created() {
-        confetti({ particleCount: 100 });
+        setTimeout(() => {
+            confetti({ particleCount: 100 });
+        }, 2000);
         setTimeout(() => {
             confetti({ angle: 45, particleCount: 50 });
-        }, 900);
+        }, 2900);
         setTimeout(() => {
             confetti({ angle: 135, particleCount: 50 });
-        }, 1500);
+        }, 3500);
         setTimeout(() => {
             confetti({ gravity: 0.5, spread: 90, particleCount: 120 });
-        }, 5000);
+        }, 7000);
     }
 }
 </script>
@@ -66,8 +82,14 @@ export default {
 
     @keyframes icon_appear {
         0% { opacity: 0 }
-        80% { opacity: 0 }
         100% { opacity: 1 }
+    }
+
+    @keyframes icon_drop {
+        0% { opacity: 0; transform: scale(10) }
+        60% { opacity: 0; transform: scale(10) }
+        90% { opacity: 1; transform: scale(1.3) }
+        100% { opacity: 1; transform: scale(1) }
     }
 
     @keyframes badge_appear {
@@ -81,45 +103,84 @@ export default {
         100% {opacity: 1; transform: scale(1) }
     }
 
+    @keyframes shake {
+        10%, 90% { transform: translate(2px, -2px) }
+        20%, 80% { transform: translate(-3px, 2px) }
+        30%, 50%, 70% { transform: translate(-1px, -2px) }
+        40%, 60% { transform: translate(1px, 1px) }
+    }
+
+    .background {
+        position: fixed;
+        z-index: 1;
+        //background-color: white;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        // animation-duration: .2s;
+        // animation-name: icon_appear;
+    }
     .badge_container {
-        animation-name: badge_appear;
-        animation-duration: 1s;
+        //animation-name: badge_appear;
+        //animation-duration: 1s;
+    }
+    .cloud {
+        margin-left: -300px;
+        margin-top: -300px;
+        position: fixed;
+        z-index: 100;
     }
     .badge {
-        width: 256px;
-        height: 256px;
-        margin-left: -128px;
-        margin-top: -128px;
+        width: 600px;
+        height: 600px;
+        margin-left: -300px;
+        margin-top: -300px;
         animation-duration: 20s;
         animation-name: rotation;
         animation-iteration-count: infinite;
         animation-timing-function: linear;
         position: fixed;
         z-index: 100;
-        //animation-direction: alternate;
     }
     .icon {
-        width: 128px;
-        height: 128px;
-        margin-left: -64px;
-        margin-top: -64px;
+        width: 360px;
+        height: 360px;
+        margin-left: -180px;
+        margin-top: -180px;
         position: fixed;
         z-index: 200;
-        animation-duration: 2.2s;
+        animation-duration: .5s;
         animation-name: icon_appear;
-
+    }
+    .icon-done {
+        width: 360px;
+        height: 360px;
+        margin-left: -180px;
+        margin-top: -180px;
+        position: fixed;
+        z-index: 210;
+        animation-duration: 2s;
+        animation-name: icon_drop;
+        animation-timing-function: ease-out;
+    }
+    .icons-container {
+        animation-duration: .7s;
+        animation-delay: 1.9s;
+        animation-name: shake;
     }
     .title_container {
         position: fixed;
         z-index: 300;
-        margin-top: 79px;
+        margin-top: 170px;
 
         .title {
             margin-left:-50%;
-            background-color: #525252;
+            border: 3px solid #525252;
+            background-color: white;
             padding: 10px 20px;
             border-radius: 22px;
-            color: white;
+            color: #333;
             font-weight: bold;
             font-size: 20px;
             display: inline-block;

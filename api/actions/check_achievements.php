@@ -110,6 +110,16 @@ while ($row_ach = $db->fetch($res_ach)) {
         }
     }
 
+    // 250 chapters read
+    if ($row_ach['name'] === '250_chapters') {
+        if ($chapters_read >= 250) {
+            $achieve = achieve($row_ach);
+            if ($achieve) {
+                $data['achievements'][] = $achieve;
+            }
+        }
+    }
+
     // 500 chapters read
     if ($row_ach['name'] === '500_chapters') {
         if ($chapters_read >= 500) {

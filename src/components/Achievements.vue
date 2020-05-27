@@ -5,15 +5,15 @@
         <h2 v-if="achievements.length > 0">{{ doneNumber }} / {{ totalNumber }}</h2>
         <h2 v-else>{{ $t('Loading') }}...</h2>
 
-
-        <div v-for="achievement in achievements"
-            :key="'id'+achievement.id"
-            class="item"
-            :class="{disabled: achievement.is_done == 0}"
-            @click="achievement.is_done == 1 ? showAchievement(achievement.title) : ''">
-            <img :src="achievement.image" alt="">
-            <div class="title">
-                {{ achievement.title }}
+        <div class="achievements-list">
+            <div v-for="achievement in achievements"
+                :key="'id'+achievement.id"
+                class="item"
+                @click="achievement.is_done == 1 ? showAchievement(achievement.title, achievement.name) : ''">
+                <img :src="achievement.image" alt="">
+                <div class="title">
+                    {{ achievement.title }}
+                </div>
             </div>
         </div>
     </div>
@@ -45,8 +45,9 @@ export default {
         }
     },
     methods: {
-        showAchievement: function(title) {
+        showAchievement: function(title, name) {
             this.current_title = title;
+            this.current_icon = name;
             this.show_achievement = true;
         }
     },
@@ -56,11 +57,12 @@ export default {
 
         data.map((val) => {
             var img;
+            console.log('done:',val.is_done);
             try {
-                img = require('../assets/' + val.name + '.png')
+                img = require('../assets/achievements/' + val.name + (val.is_done == 1 ? '_done' : '') + '.png');
             }
             catch (e) {
-                img = require('../assets/achievements/default.png')
+                img = require('../assets/achievements/default.png');
             }
             return val['image'] = img;
         });
@@ -71,32 +73,31 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.achievements-list {
+    display: flex;
+    flex-flow: wrap;
+}
+
 .item {
     width: 33%;
-    float:left;
     text-align:center;
-    padding: 20px 10px;
+    padding: 20px 6px;
     box-sizing: border-box;
 
     img {
-        width:70%;
+        width:100%;
     }
 
     .title {
         margin-top: 10px;
-        background-color: #525252;
-        padding: 8px 10px;
+        border: 2px solid #787878;
+        padding: 8px 7px;
         border-radius: 14px;
-        color: white;
+        color: #333;
         font-weight: bold;
-        font-size: 16px;
+        font-size: 15px;
         line-height: 19px;
-    }
-
-    &.disabled {
-        img {
-            filter: grayscale(1);
-        }
     }
 }
 </style>
