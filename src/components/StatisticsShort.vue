@@ -96,47 +96,54 @@ export default {
         }
     },
     methods: {
+        async init() {
+            // generate random data for demo
+            if (this.disabled) {
+                this.stats.read_chapters = this.stats.read_chars = 100;
+                this.stats.total_chapters = this.stats.total_chars = 1000;
+                this.stats.achievements_count = this.stats.total_achievements = 1;
+                this.stats.by_month = [];
+            }
+            else {
+                const res = await fetch(process.env.API_URL + "/?action=statistics&session_id=" + this.getUser.session_id);
+                this.stats = await res.json();
+            }
 
+
+            this.pieChartData = {
+                labels: [this.$t('Readed'), this.$t('NotReaded')],
+                datasets: [{
+                    backgroundColor: ['#69ba89', '#ebe293'],
+                    data: [this.stats.read_chapters, this.stats.total_chapters]
+                }]
+            }
+
+            // format month chart
+            let monthData = [];
+            let labels = [];
+            for (let i=30; i>=0; i--) {
+                const date = new Date(new Date() - 60*60*24*1000 * i).toISOString().substr(0, 10);
+                const dayData = this.stats.by_month[date] !== undefined ? this.stats.by_month[date].chars : 0;
+                monthData.push(dayData);
+                labels.push(date);
+                this.monthChartTooltip[date] = this.stats.by_month[date] !== undefined ? this.stats.by_month[date].chapters : 0;
+            }
+            this.monthChartData = {
+                labels: labels,
+                datasets: [{
+                    label: this.$t('ProgressForMonth'),
+                    backgroundColor: '#5ba1c3',
+                    data: monthData
+                }]
+            }
+        }
     },
     async mounted() {
-        // generate random data for demo
-        if (this.disabled) {
-            this.stats.read_chapters = this.stats.read_chars = 100;
-            this.stats.total_chapters = this.stats.total_chars = 1000;
-            this.stats.achievements_count = this.stats.total_achievements = 1;
-            this.stats.by_month = [];
-        }
-        else {
-            const res = await fetch(process.env.API_URL + "/?action=statistics&session_id=" + this.getUser.session_id);
-            this.stats = await res.json();
-        }
-
-
-        this.pieChartData = {
-            labels: [this.$t('Readed'), this.$t('NotReaded')],
-            datasets: [{
-                backgroundColor: ['#69ba89', '#ebe293'],
-                data: [this.stats.read_chapters, this.stats.total_chapters]
-            }]
-        }
-
-        // format month chart
-        let monthData = [];
-        let labels = [];
-        for (let i=30; i>=0; i--) {
-            const date = new Date(new Date() - 60*60*24*1000 * i).toISOString().substr(0, 10);
-            const dayData = this.stats.by_month[date] !== undefined ? this.stats.by_month[date].chars : 0;
-            monthData.push(dayData);
-            labels.push(date);
-            this.monthChartTooltip[date] = this.stats.by_month[date] !== undefined ? this.stats.by_month[date].chapters : 0;
-        }
-        this.monthChartData = {
-            labels: labels,
-            datasets: [{
-                label: this.$t('ProgressForMonth'),
-                backgroundColor: '#5ba1c3',
-                data: monthData
-            }]
+        await this.init();
+    },
+    watch: {
+        async 'disabled'() {
+            await this.init();
         }
     }
 }
