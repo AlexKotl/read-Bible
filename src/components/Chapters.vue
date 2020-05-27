@@ -4,7 +4,7 @@
 
         <h2>{{ $t("Index") }}</h2>
         <div v-for="(chapters, book) in getChapters" :key="book">
-            {{ book }}
+            <b>{{ book }}</b>
             <div>
                 <router-link
                     v-for="chapter in chapters"
