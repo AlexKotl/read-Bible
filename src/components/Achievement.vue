@@ -92,11 +92,6 @@ export default {
         100% { opacity: 1; transform: scale(1) }
     }
 
-    @keyframes badge_appear {
-        0% {opacity: 0; transform: scale(0.3) }
-        100% {opacity: 1; transform: scale(1) }
-    }
-
     @keyframes title_appear {
         0% {opacity: 0; transform: scale(0.3) }
         90% {opacity: 0; transform: scale(0.3) }
@@ -120,10 +115,6 @@ export default {
         top: 0;
         // animation-duration: .2s;
         // animation-name: icon_appear;
-    }
-    .badge_container {
-        //animation-name: badge_appear;
-        //animation-duration: 1s;
     }
     .cloud {
         margin-left: -300px;
