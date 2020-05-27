@@ -82,7 +82,7 @@ export default {
 .item {
     width: 33%;
     text-align:center;
-    padding: 20px 10px;
+    padding: 20px 6px;
     box-sizing: border-box;
 
     img {
@@ -92,11 +92,11 @@ export default {
     .title {
         margin-top: 10px;
         border: 2px solid #787878;
-        padding: 8px 10px;
+        padding: 8px 7px;
         border-radius: 14px;
         color: #333;
         font-weight: bold;
-        font-size: 16px;
+        font-size: 15px;
         line-height: 19px;
     }
 }

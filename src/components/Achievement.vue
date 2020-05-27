@@ -1,5 +1,7 @@
 <template>
     <div class='achievement'>
+        <div class="background"></div>
+
         <div class="badge_container">
             <!-- <img :src="require('../assets/cloud.png')" class="cloud" alt=""> -->
             <!-- <img :src="require('../assets/badge.png')" class="badge"> -->
@@ -108,6 +110,17 @@ export default {
         40%, 60% { transform: translate(1px, 1px) }
     }
 
+    .background {
+        position: fixed;
+        z-index: 1;
+        //background-color: white;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        // animation-duration: .2s;
+        // animation-name: icon_appear;
+    }
     .badge_container {
         //animation-name: badge_appear;
         //animation-duration: 1s;
@@ -159,7 +172,7 @@ export default {
     .title_container {
         position: fixed;
         z-index: 300;
-        margin-top: 140px;
+        margin-top: 170px;
 
         .title {
             margin-left:-50%;
