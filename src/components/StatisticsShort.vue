@@ -196,6 +196,7 @@ export default {
     }
     span {
         margin-top: -2px;
+        margin-left: -2px;
         float: left;
     }
 }
