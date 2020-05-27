@@ -57,7 +57,6 @@ export default {
 
         data.map((val) => {
             var img;
-            console.log('done:',val.is_done);
             try {
                 img = require('../assets/achievements/' + val.name + (val.is_done == 1 ? '_done' : '') + '.png');
             }

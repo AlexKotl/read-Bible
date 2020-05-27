@@ -9,24 +9,26 @@
             </div>
         </div>
 
-        <div class="left">
-            <PieChart :chart-data="pieChartData"></PieChart>
+        <div style="display:flex">
+            <div class="left">
+                <PieChart :chart-data="pieChartData"></PieChart>
+            </div>
+            <div class="right">
+                {{ $t("Readed") }}:
+                <div class='number'>
+                    {{ this.totalPercents }}%
+                </div>
+                {{ $t("ReadedChapters") }}:
+                <div class='number'>
+                    {{ this.stats.read_chapters }}
+                </div>
+                {{ $t("Achievements") }}:
+                <div class='number'>
+                    {{ this.stats.achievements_count }} <small>{{ $t("outOf") }}</small> {{ this.stats.total_achievements }}
+                </div>
+            </div>
         </div>
-        <div class="right">
-            {{ $t("Readed") }}:
-            <div class='number'>
-                {{ this.totalPercents }}%
-            </div>
-            {{ $t("ReadedChapters") }}:
-            <div class='number'>
-                {{ this.stats.read_chapters }}
-            </div>
-            {{ $t("Achievements") }}:
-            <div class='number'>
-                {{ this.stats.achievements_count }} <small>{{ $t("outOf") }}</small> {{ this.stats.total_achievements }}
-            </div>
-        </div>
-        <br style="clear:both">
+
         <div>
             <BarChart :chart-data="monthChartData" :options="monthChartOptions" :styles="{height: '160px'}"></BarChart>
         </div>
@@ -168,11 +170,9 @@ export default {
 }
 
 .left {
-    float:left;
     width:40%
 }
 .right {
-    float:right;
     width:60%;
     text-align: center;
     font-size:12px;
