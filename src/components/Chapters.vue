@@ -1,13 +1,6 @@
 <template>
     <div>
-        <StatisticsShort v-if="getUser.session_id"></StatisticsShort>
-        <div v-else class="greetings-window">
-            {{ $t("greetings_guest") }}
-            <br>
-            <router-link :to="{ name: 'login' }" class="button">{{ $t("Login") }}</router-link>
-            <router-link :to="{ name: 'registration' }" class="button">{{ $t("Registration") }}</router-link>
-
-        </div>
+        <StatisticsShort  :disabled="!getUser.session_id"></StatisticsShort>
 
         <h2>{{ $t("Index") }}</h2>
         <div v-for="(chapters, book) in getChapters" :key="book">
@@ -39,14 +32,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.greetings-window {
-    background-color: #f9f0d7;
-    padding: 15px 10px;
-    border: 1px solid #e9ddb9;
-    font-size: 15px;
-    border-radius: 5px;
-    text-align: center;
-}
 #app.dark .greetings-window {
     color: black;
 }

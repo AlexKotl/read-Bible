@@ -1,5 +1,13 @@
 <template>
-    <div>
+    <div style="position: relative">
+        <div class="blocker" v-if="disabled">
+            <div class="greetings-window">
+                {{ $t("greetings_guest") }}
+                <br>
+                <router-link :to="{ name: 'login' }" class="button">{{ $t("Login") }}</router-link>
+                <router-link :to="{ name: 'registration' }" class="button">{{ $t("Registration") }}</router-link>
+            </div>
+        </div>
 
         <div class="left">
             <PieChart :chart-data="pieChartData"></PieChart>
@@ -45,6 +53,7 @@ import BarChart from './charts/BarChart.vue';
 import { mapGetters } from 'vuex';
 export default {
     components: { PieChart, BarChart },
+    props: [ "disabled" ],
     data () {
         return {
             pieChartData: null,
@@ -89,20 +98,24 @@ export default {
     methods: {
 
     },
-    async created() {
-        console.log(this.getUser)
-        if (this.getUser.session_id === undefined) {
-            console.log('no user session')
-            return;
+    async mounted() {
+        // generate random data for demo
+        if (this.disabled) {
+            this.stats.read_chapters = this.stats.read_chars = 100;
+            this.stats.total_chapters = this.stats.total_chars = 1000;
+            this.stats.achievements_count = this.stats.total_achievements = 1;
+            this.stats.by_month = [];
+        }
+        else {
+            const res = await fetch(process.env.API_URL + "/?action=statistics&session_id=" + this.getUser.session_id);
+            this.stats = await res.json();
         }
 
-        const res = await fetch(process.env.API_URL + "/?action=statistics&session_id=" + this.getUser.session_id);
-        this.stats = await res.json();
 
         this.pieChartData = {
             labels: [this.$t('Readed'), this.$t('NotReaded')],
             datasets: [{
-                backgroundColor: ['#5da85d', '#ebe293'],
+                backgroundColor: ['#69ba89', '#ebe293'],
                 data: [this.stats.read_chapters, this.stats.total_chapters]
             }]
         }
@@ -130,6 +143,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.blocker {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(4px);
+
+    .greetings-window {
+        background-color: white;
+        padding: 15px 10px;
+        border: 1px solid #e9ddb9;
+        font-size: 15px;
+        border-radius: 5px;
+        text-align: center;
+        margin: 154px 20px 0 20px;
+    }
+}
+
 .left {
     float:left;
     width:40%
