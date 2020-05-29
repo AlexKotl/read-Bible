@@ -10,6 +10,7 @@ import Chapter from './components/Chapter.vue';
 import LoginForm from './components/LoginForm.vue';
 import RegistrationForm from './components/RegistrationForm.vue';
 import Achievements from './components/Achievements.vue';
+import Users from './components/Users.vue';
 
 Vue.use(Router);
 Vue.use(GAuth, {
@@ -46,6 +47,11 @@ const router = new Router({
             path: '/achievements',
             name: 'achievements',
             component: Achievements,
+        },
+        {
+            path: '/users',
+            name: 'users',
+            component: Users,
         }
     ]
 });

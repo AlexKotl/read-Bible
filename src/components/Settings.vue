@@ -27,7 +27,9 @@
             <a @click="updateTheme('dark')" :class="{ 'selected': getTheme() == 'dark'}" class="option">
                 {{ $t("Dark") }}
             </a>
-            <br><br>
+            <br>
+            <br>
+            <!-- <router-link to="users" @click.native="showWindow = false">{{ $t("Users") }}</router-link><br> -->
             <a class="button" @click="showWindow = false" style='padding: 5px 15px'>{{ $t("Close") }}</a>
         </div>
     </div>
