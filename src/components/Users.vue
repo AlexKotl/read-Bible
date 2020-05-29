@@ -7,7 +7,14 @@
                 :key="'id'+user.id"
                 class="item">
                 <img :src="user.picture" />
-                {{ user.name }}
+                <b>{{ user.name }}</b>
+                <div v-if="user.chapters_count > 0" class="user-chapters">
+                    {{ $t('Chapters') }}: {{ user.chapters_count }}
+                </div>
+                <div v-if="user.achievements_count > 0" class="user-achievements">
+                    <img :src="require('./../assets/achievements/default.png')" class="icon" >
+                    {{ user.achievements_count }}
+                </div>
             </div>
         </div>
     </div>
@@ -38,12 +45,25 @@ export default {
     display: flex;
     flex-flow: wrap;
 }
+.user-chapters {
+    font-size: 15px;
+    margin-top: 3px;
+}
+.user-achievements {
+    font-size: 15px;
+    font-weight: bold;
+
+    .icon {
+        vertical-align: middle;
+        width: 24px;
+    }
+}
 .item {
     width: 33%;
     text-align:center;
     padding: 20px 6px;
 
-    img {
+    > img {
         width:100%;
         border-radius: 50%;
     }
