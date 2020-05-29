@@ -6,7 +6,7 @@
             <div v-for="user in users"
                 :key="'id'+user.id"
                 class="item">
-                <img :src="user.picture" />
+                <img :src="user.picture || require('./../assets/user.png')" /> <br/>
                 <b>{{ user.name }}</b>
                 <div v-if="user.chapters_count > 0" class="user-chapters">
                     {{ $t('Chapters') }}: {{ user.chapters_count }}
@@ -64,7 +64,7 @@ export default {
     padding: 20px 6px;
 
     > img {
-        width:100%;
+        width: 80%;
         border-radius: 50%;
     }
 }
