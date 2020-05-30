@@ -21,6 +21,12 @@
             <div class="content">
                 <router-view></router-view>
             </div>
+
+            <div class="site-footer">
+                <router-link :to="{ name: 'chapters' }">{{ $t("Bible") }}</router-link>
+                <router-link :to="{ name: 'users' }">{{ $t("Users") }}</router-link>
+                <router-link :to="{ name: 'about' }">{{ $t("AboutUs") }}</router-link>
+            </div>
         </div>
     </div>
 </template>
@@ -157,7 +163,17 @@ form {
 
 .menu-actions {
     position: relative;
-    
+}
+
+.site-footer {
+    font-size: 15px;
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: 20px;
+
+    a {
+        margin: 0 7px;
+    }
 }
 
 

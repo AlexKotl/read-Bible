@@ -48,6 +48,9 @@ const messages = {
         LoginWithGoogle: "Login with Google",
         or: "or",
         Loading: "Loading",
+        Users: "Users",
+        AboutUs: "About us",
+        AboutUsText: "",
     },
     'ua': {
         Bible: "Біблія",
@@ -93,6 +96,9 @@ const messages = {
         LoginWithGoogle: "Увійти за допомогою Google",
         or: "або",
         Loading: "Заванатажую",
+        Users: "Користувачі",
+        AboutUs: "Про нас",
+        AboutUsText: "",
     },
     'ru': {
         Bible: "Библия",
@@ -138,6 +144,9 @@ const messages = {
         LoginWithGoogle: "Войти с помощью Google",
         or: "или",
         Loading: "Загрузка",
+        Users: "Пользователи",
+        AboutUs: "Про нас",
+        AboutUsText: "",
     }
 };
 
