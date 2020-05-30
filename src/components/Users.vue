@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>{{ $t("Users") }}</h2>
+        <h2>{{ $t("Users") }} - {{ users.length }}</h2>
 
         <div class="users-list">
             <div v-for="user in users"

@@ -51,6 +51,10 @@ const messages = {
         Users: "Users",
         AboutUs: "About us",
         AboutUsText: "",
+        AlexKotliarov: "Oleksandr Kotliarov",
+        Programming: "Programming",
+        AlyonaKotliarova: "Alyona Kotliarova",
+        IconsDesign: "Icons Design",
     },
     'ua': {
         Bible: "Біблія",
@@ -99,6 +103,10 @@ const messages = {
         Users: "Користувачі",
         AboutUs: "Про нас",
         AboutUsText: "",
+        AlexKotliarov: "Олександр Котляров",
+        Programming: "Програмування",
+        AlyonaKotliarova: "Альона Котлярова",
+        IconsDesign: "Дизайн іконок",
     },
     'ru': {
         Bible: "Библия",
@@ -146,7 +154,11 @@ const messages = {
         Loading: "Загрузка",
         Users: "Пользователи",
         AboutUs: "Про нас",
-        AboutUsText: "",
+        AboutUsText: "Приложение \"Прочитай Библию\" было разработано в 2020 году как практическое задание для закрепления некоторых вэб-технологий. После проявленного интереса к приложению от близких и дрезей - было решено его доработать и сделать публичным. Позже был добавлен функционал достижений и нарисована графика профессиональным дизайнером.",
+        AlexKotliarov: "Александр Котляров",
+        Programming: "Программирование",
+        AlyonaKotliarova: "Алена Котлярова",
+        IconsDesign: "Дизайн иконок",
     }
 };
 
