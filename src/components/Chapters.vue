@@ -1,6 +1,15 @@
 <template>
     <div>
-        <StatisticsShort  :disabled="!getUser.session_id"></StatisticsShort>
+        <div class="stats-placeholder" v-if="!getUser.session_id">
+            <div class="greetings-window">
+                {{ $t("greetings_guest") }}
+                <br>
+                <router-link :to="{ name: 'login' }" class="button">{{ $t("Login") }}</router-link>
+                <router-link :to="{ name: 'registration' }" class="button">{{ $t("Registration") }}</router-link>
+            </div>
+            <img :src="require('./../assets/stats-placeholder.jpg')" class="placeholder" alt="">
+        </div>
+        <StatisticsShort v-else :disabled="!getUser.session_id"></StatisticsShort>
 
         <h2>{{ $t("Index") }}</h2>
         <div v-for="(chapters, book) in getChapters" :key="book">
@@ -34,5 +43,23 @@ export default {
 <style lang="scss" scoped>
 #app.dark .greetings-window {
     color: black;
+}
+
+.stats-placeholder {
+    position: relative;
+
+    .placeholder {
+        width: 100%;
+    }
+}
+.greetings-window {
+    position: absolute;
+    background-color: white;
+    padding: 15px 10px;
+    border: 1px solid #e9ddb9;
+    font-size: 15px;
+    border-radius: 5px;
+    text-align: center;
+    margin: 54px 20px 0 20px;
 }
 </style>

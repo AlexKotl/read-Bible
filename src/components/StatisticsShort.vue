@@ -1,13 +1,5 @@
 <template>
     <div style="position: relative">
-        <div class="blocker" v-if="disabled">
-            <div class="greetings-window">
-                {{ $t("greetings_guest") }}
-                <br>
-                <router-link :to="{ name: 'login' }" class="button">{{ $t("Login") }}</router-link>
-                <router-link :to="{ name: 'registration' }" class="button">{{ $t("Registration") }}</router-link>
-            </div>
-        </div>
 
         <div style="display:flex">
             <div class="left">
@@ -100,6 +92,7 @@ export default {
     methods: {
         async init() {
             // generate random data for demo
+            // not used alread
             if (this.disabled) {
                 this.stats.read_chapters = this.stats.read_chars = 100;
                 this.stats.total_chapters = this.stats.total_chars = 1000;
@@ -152,22 +145,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.blocker {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backdrop-filter: blur(4px);
-
-    .greetings-window {
-        background-color: white;
-        padding: 15px 10px;
-        border: 1px solid #e9ddb9;
-        font-size: 15px;
-        border-radius: 5px;
-        text-align: center;
-        margin: 154px 20px 0 20px;
-    }
-}
 
 .left {
     width:40%
