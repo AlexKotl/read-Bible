@@ -8,7 +8,7 @@ $email = $db->filter($request_body['email'], 'email');
 $password = md5($request_body['password']);
 
 // Auth by Google
-if ($request_body['code']) {
+if ($request_body['code'] || $request_body['token']) {
     $client = new Google_Client();
     $client->setClientId($google_client_id);
     $client->setClientSecret($google_secret);
@@ -16,7 +16,12 @@ if ($request_body['code']) {
     $client->addScope("email");
     $client->addScope("profile");
 
-    $token = $client->fetchAccessTokenWithAuthCode($request_body['code']);
+    if ($request_body['code']) {
+        $token = $client->fetchAccessTokenWithAuthCode($request_body['code']);
+    }
+    else {
+        $token['access_token'] = $request_body['token'];
+    }
 
     // login with Google OAuth2
     if ($token['access_token']) {
