@@ -8,7 +8,29 @@ $email = $db->filter($request_body['email'], 'email');
 $password = md5($request_body['password']);
 
 // Auth by Google
-if ($request_body['code'] || $request_body['token']) {
+if ($request_body['apple_user_id']) {
+    $user_id = $request_body['apple_user_id'];
+    $email = $request_body['email'];
+    $name = $request_body['name'];
+
+    if (!$email) {
+        $email = $user_id;
+    }
+
+    $row = $db->get_row("SELECT * FROM users WHERE email='{$email}' LIMIT 1");
+
+    // register if user not exists
+    if (!$row) {
+        $db->insert('users', [
+            'name' => $name,
+            'email' => $email,
+            'picture' => '',
+            'flag' => 1,
+        ]);
+        $row = $db->get_row("SELECT * FROM users WHERE email='{$email}' LIMIT 1");
+    }
+}
+elseif ($request_body['code'] || $request_body['token']) {
     $client = new Google_Client();
     $client->setClientId($google_client_id);
     $client->setClientSecret($google_secret);
