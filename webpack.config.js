@@ -59,7 +59,7 @@ if (process.env.NODE_ENV === 'production') {
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"production"',
-        API_URL: '"https://readbible.club/api"'
+        API_URL: '"https://bible-api.playtennis.com.ua/api"'
       }
     }),
     new webpack.LoaderOptionsPlugin({
@@ -72,7 +72,7 @@ else {
       new webpack.DefinePlugin({
         'process.env': {
           NODE_ENV: '"production"',
-          API_URL: '"http://bible-api"'
+          API_URL: '"https://bible-api.playtennis.com.ua/api"'
         }
       }),
   ])
