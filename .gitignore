@@ -6,3 +6,4 @@ node_modules/
 /composer.lock
 /api/db_config.php
 /api/config.php
+.vscode/settings.json
